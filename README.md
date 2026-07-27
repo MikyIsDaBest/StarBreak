@@ -33,4 +33,4 @@ If you wanna run Star Strike, you need to run it as Admin.
 
 
 Changelog: 
-WIP, more stuff comming soon
+27/7/26 Added CUPP (Common User Passwords Profiler) & Sherlock
