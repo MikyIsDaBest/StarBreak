@@ -33,4 +33,4 @@ If you wanna run Star Strike, you need to run it as Admin.
 
 
 Changelog: 
-27/7/26 Added CUPP (Common User Passwords Profiler) & Sherlock
+27/7/26 Added CUPP (Common User Passwords Profiler) & Sherlock | added ascii graphics logo to the linux launcher
