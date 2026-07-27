@@ -30,3 +30,7 @@ It is because it needs admin privileges to run Star Strike.
 After that extract the files and run the "Launcher.bat". If you are not sure
 if you have the plugins installed, it will tell you if it doesn't find it.
 If you wanna run Star Strike, you need to run it as Admin. 
+
+
+Changelog: 
+WIP, more stuff comming soon
