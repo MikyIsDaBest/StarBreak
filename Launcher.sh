@@ -11,6 +11,7 @@ show_menu() {
     clear
     echo "==================================================="
     echo "                     STARBREAK                     "
+    echo "              Made by N E T W O R K 0              "
     echo "==================================================="
     echo "              NETWORK AND SECURITY SUITE           "
     echo "==================================================="
@@ -92,8 +93,8 @@ run_starstrike() {
         read -rp "[1/4] Target required: " VICTIM
     done
 
-    read -rp "[2/4] Enter Number of Threads (default 10): " THREADS # the default number of threads in starstrike's source code is 10
-    THREADS="${THREADS:-10}"
+    read -rp "[2/4] Enter Number of Threads (default 50): " THREADS
+    THREADS="${THREADS:-50}"
 
     read -rp "[3/4] Enter Payload Size in bytes (default 65455): " PAYLOAD
     PAYLOAD="${PAYLOAD:-65455}"
