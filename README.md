@@ -3,7 +3,7 @@ A cybersecurity multitool containing some usefull tools such as NMap, NSLookup, 
 
 StarStrike is made by the contributor and my colleague Vitalij3703 (aka Solez).
 The repository for StarStrike is <a href="github.com/Vitalij3703/StarStrike">Vitalij3703/StarStrike</a>
-Looking for a cybersecurity multitool? You just found one. It is still a work in progress, but more tools are comming later on.
+<br>Looking for a cybersecurity multitool? You just found one. It is still a work in progress, but more tools are comming later on.
 
 MALICIOUS USE OF THIS TOOL IS ILLEGAL AND CAN LEAD TO JAIL TIME, READ #README FOR MORE INFO
 
