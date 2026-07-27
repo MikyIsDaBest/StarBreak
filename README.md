@@ -1,7 +1,7 @@
 # StarBreak
 A cybersecurity multitool containing some usefull tools such as NMap, NSLookup, WireShark and our custom "StarStrike"
 
-Star Strike is made by my colleague Solez
+Star Strike is made by the contributor and my colleague Vitalij3703 (aka Solez).
 
 Looking for a cybersecurity multitool? You just found one. It is still a work in progress, but more tools are comming later on.
 
