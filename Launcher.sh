@@ -20,7 +20,9 @@ show_menu() {
     echo "  [3] Launch Nslookup (DNS Lookup Tool)"
     echo "  [4] Launch StarStrike Plugin (Guided Inputs)"
     echo "  [5] Launch StarStrike Plugin (Custom Raw Command)"
-    echo "  [6] Exit"
+    echo "  [6] Launch CUPP (Common User Passwords Profiler)"
+    echo "  [7] Launch Sherlock (OSINT Username Lookup)"
+    echo "  [8] Exit"
     echo "==================================================="
 }
 
@@ -150,16 +152,85 @@ run_custom_raw() {
     read -rp "Press Enter to continue..."
 }
 
+run_cupp() {
+    clear
+    echo "==================================================="
+    echo "                    MODULE: CUPP                   "
+    echo "==================================================="
+
+    if [ -f "plugins/cupp/cupp.py" ]; then
+        python3 plugins/cupp/cupp.py -i
+    elif [ -f "plugins/cupp.py" ]; then
+        python3 plugins/cupp.py -i
+    elif command -v cupp &> /dev/null; then
+        cupp -i
+    else
+        echo "CUPP not detected in plugins/ directory."
+        read -rp "Would you like to clone CUPP into plugins/ now? (y/n): " INSTALL_CUPP
+        if [[ "$INSTALL_CUPP" =~ ^[Yy]$ ]]; then
+            git clone https://github.com/Mebus/cupp.git plugins/cupp
+            if [ -f "plugins/cupp/cupp.py" ]; then
+                echo "CUPP downloaded successfully! Starting interactive setup..."
+                python3 plugins/cupp/cupp.py -i
+            fi
+        fi
+    fi
+
+    echo "---------------------------------------------------"
+    read -rp "Press Enter to continue..."
+}
+
+run_sherlock() {
+    clear
+    echo "==================================================="
+    echo "                  MODULE: SHERLOCK                 "
+    echo "==================================================="
+
+    read -rp "Enter Username to search (e.g. johndoe): " TARGET_USER
+    if [ -z "$TARGET_USER" ]; then return; fi
+
+    echo ""
+    echo "Searching for target: $TARGET_USER"
+    echo "---------------------------------------------------"
+
+    if command -v sherlock &> /dev/null; then
+        sherlock "$TARGET_USER"
+    elif [ -f "plugins/sherlock/sherlock/sherlock.py" ]; then
+        python3 plugins/sherlock/sherlock/sherlock.py "$TARGET_USER"
+    elif [ -f "plugins/sherlock/sherlock.py" ]; then
+        python3 plugins/sherlock/sherlock.py "$TARGET_USER"
+    else
+        echo "Sherlock is not installed globally or in plugins/ directory."
+        read -rp "Would you like to clone Sherlock into plugins/ now? (y/n): " INSTALL_SHERLOCK
+        if [[ "$INSTALL_SHERLOCK" =~ ^[Yy]$ ]]; then
+            git clone https://github.com/sherlock-project/sherlock.git plugins/sherlock
+            if [ -f "plugins/sherlock/requirements.txt" ]; then
+                echo "Installing Python dependencies for Sherlock..."
+                python3 -m pip install -r plugins/sherlock/requirements.txt
+            fi
+            if [ -f "plugins/sherlock/sherlock/sherlock.py" ]; then
+                echo "Sherlock downloaded! Executing search..."
+                python3 plugins/sherlock/sherlock/sherlock.py "$TARGET_USER"
+            fi
+        fi
+    fi
+
+    echo "---------------------------------------------------"
+    read -rp "Press Enter to continue..."
+}
+
 while true; do
     show_menu
-    read -rp "Select a tool [1-6]: " CHOICE
+    read -rp "Select a tool [1-8]: " CHOICE
     case "$CHOICE" in
         1) run_nmap ;;
         2) run_wireshark ;;
         3) run_nslookup ;;
         4) run_starstrike ;;
         5) run_custom_raw ;;
-        6) echo "Goodbye!"; exit 0 ;;
+        6) run_cupp ;;
+        7) run_sherlock ;;
+        8) echo "Goodbye!"; exit 0 ;;
         *) echo "Invalid selection, please try again."; sleep 1 ;;
     esac
 done
