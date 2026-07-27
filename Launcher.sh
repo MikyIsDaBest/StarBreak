@@ -9,12 +9,17 @@ mkdir -p plugins
 
 show_menu() {
     clear
-    echo "==================================================="
-    echo "                     STARBREAK                     "
-    echo "              Made by N E T W O R K 0              "
-    echo "==================================================="
-    echo "              NETWORK AND SECURITY SUITE           "
-    echo "==================================================="
+    echo "================================================================="
+    echo "   ____ _____  _    ____    ____  ____  _____    _    _  __ "
+    echo "  / ___|_   _|/ \  |  _ \  | __ )|  _ \| ____|  / \  | |/ / "
+    echo "  \___ \ | | / _ \ | |_) | |  _ \| |_) |  _|   / _ \ | ' /  "
+    echo "   ___) || |/ ___ \|  _ <  | |_) |  _ <| |___ / ___ \| . \  "
+    echo "  |____/ |_/_/   \_\_| \_\ |____/|_| \_\_____/_/   \_\_|\_\ "
+    echo ""
+    echo "                     Made by N E T W O R K 0             "
+    echo "================================================================="
+    echo "                     NETWORK AND SECURITY SUITE           "
+    echo "================================================================="
     echo "  [1] Launch Nmap (Port AND Network Discovery)"
     echo "  [2] Launch Wireshark (Packet Capture)"
     echo "  [3] Launch Nslookup (DNS Lookup Tool)"
@@ -23,7 +28,7 @@ show_menu() {
     echo "  [6] Launch CUPP (Common User Passwords Profiler)"
     echo "  [7] Launch Sherlock (OSINT Username Lookup)"
     echo "  [8] Exit"
-    echo "==================================================="
+    echo "================================================================="
 }
 
 run_nmap() {
