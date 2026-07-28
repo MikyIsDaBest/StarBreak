@@ -12,6 +12,9 @@ MACOS SUPPORT MAY COME LATER ON. TERMUX SUPPORT ISN'T PLANNED YET
 ===========================================
 For Linux, use "Launcher.sh" 
 
+You will need to most likely manually put plugins "Star Strike" and "TCP Scanner" to the plugins folder.
+If they don't work when tested, do this step.
+
 FOR IT TO RUN ON LINUX:
 1) git clone https://github.com/MikyIsDaBest/StarBreak
 
@@ -34,3 +37,4 @@ If you wanna run Star Strike, you need to run it as Admin.
 
 Changelog: 
 27/7/26 Added CUPP (Common User Passwords Profiler) & Sherlock | added ascii graphics logo to the linux launcher
+28/7/26 Added our own TCP Scanner and AirCrack-ng options.
