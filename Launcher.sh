@@ -27,7 +27,9 @@ show_menu() {
     echo "  [5] Launch StarStrike Plugin (Custom Raw Command)"
     echo "  [6] Launch CUPP (Common User Passwords Profiler)"
     echo "  [7] Launch Sherlock (OSINT Username Lookup)"
-    echo "  [8] Exit"
+    echo "  [8] Launch TCP Port Scanner Plugin"
+    echo "  [9] Launch Aircrack-ng (Wireless Security Suite)"
+    echo "  [10] Exit"
     echo "================================================================="
 }
 
@@ -224,9 +226,68 @@ run_sherlock() {
     read -rp "Press Enter to continue..."
 }
 
+run_tcp_scanner() {
+    clear
+    echo "==================================================="
+    echo "               TCP PORT SCANNER PLUGIN             "
+    echo "==================================================="
+
+    read -rp "Enter Target IP / Hostname: " SCAN_TARGET
+    if [ -z "$SCAN_TARGET" ]; then return; fi
+
+    read -rp "Enter Start Port (default 1): " START_PORT
+    START_PORT="${START_PORT:-1}"
+
+    read -rp "Enter End Port (default 1024): " END_PORT
+    END_PORT="${END_PORT:-1024}"
+
+    echo ""
+    echo "---------------------------------------------------"
+
+    if [ -f "plugins/tcp_scanner.py" ]; then
+        python3 plugins/tcp_scanner.py --target "$SCAN_TARGET" --start_port "$START_PORT" --end_port "$END_PORT"
+    else
+        echo "Error: Could not find plugins/tcp_scanner.py"
+    fi
+
+    echo "---------------------------------------------------"
+    read -rp "Press Enter to continue..."
+}
+
+run_aircrack() {
+    clear
+    echo "==================================================="
+    echo "                 MODULE: AIRCRACK-NG               "
+    echo "==================================================="
+
+    if ! command -v aircrack-ng &> /dev/null; then
+        echo "Error: aircrack-ng is not installed on this system."
+        echo "Install it via your package manager (e.g., sudo apt install aircrack-ng)."
+        read -rp "Press Enter to continue..."
+        return
+    fi
+
+    read -rp "Enter target .cap / .pcap capture file path: " CAP_FILE
+    if [ -z "$CAP_FILE" ]; then return; fi
+
+    read -rp "Enter wordlist file path (optional, press Enter to skip): " WORDLIST
+
+    echo ""
+    echo "Executing Aircrack-ng..."
+    echo "---------------------------------------------------"
+    if [ -n "$WORDLIST" ]; then
+        aircrack-ng -w "$WORDLIST" "$CAP_FILE"
+    else
+        aircrack-ng "$CAP_FILE"
+    fi
+
+    echo "---------------------------------------------------"
+    read -rp "Press Enter to continue..."
+}
+
 while true; do
     show_menu
-    read -rp "Select a tool [1-8]: " CHOICE
+    read -rp "Select a tool [1-10]: " CHOICE
     case "$CHOICE" in
         1) run_nmap ;;
         2) run_wireshark ;;
@@ -235,7 +296,9 @@ while true; do
         5) run_custom_raw ;;
         6) run_cupp ;;
         7) run_sherlock ;;
-        8) echo "Goodbye!"; exit 0 ;;
+        8) run_tcp_scanner ;;
+        9) run_aircrack ;;
+        10) echo "Goodbye!"; exit 0 ;;
         *) echo "Invalid selection, please try again."; sleep 1 ;;
     esac
 done
