@@ -29,7 +29,8 @@ show_menu() {
     echo "  [7] Launch Sherlock (OSINT Username Lookup)"
     echo "  [8] Launch TCP Port Scanner Plugin"
     echo "  [9] Launch Aircrack-ng (Wireless Security Suite)"
-    echo "  [10] Exit"
+    echo "  [10] Launch SMS Spoofer (Free SMS Spoofing Engine)"
+    echo "  [11] Exit"
     echo "================================================================="
 }
 
@@ -285,9 +286,67 @@ run_aircrack() {
     read -rp "Press Enter to continue..."
 }
 
+run_sms_spoofer() {
+    clear
+    echo "==================================================="
+    echo "                SMS SPOOFER ENGINE                 "
+    echo "==================================================="
+    echo "Free SMS Spoofing via carrier gateways & public APIs"
+    echo ""
+
+    read -rp "Enter Target Phone Number (e.g., +1234567890): " SMS_TARGET
+    if [ -z "$SMS_TARGET" ]; then return; fi
+
+    read -rp "Enter Spoofed Sender ID (e.g., +19998887777): " SMS_SPOOF
+    if [ -z "$SMS_SPOOF" ]; then 
+        SMS_SPOOF="+00000000000"
+    fi
+
+    read -rp "Enter Message Content: " SMS_MSG
+    if [ -z "$SMS_MSG" ]; then
+        SMS_MSG="Hello from CATShadow Spoofer!"
+    fi
+
+    read -rp "Enter Number of Messages (default 10): " SMS_COUNT
+    SMS_COUNT="${SMS_COUNT:-10}"
+
+    read -rp "Enter Threads (default 5): " SMS_THREADS
+    SMS_THREADS="${SMS_THREADS:-5}"
+
+    clear
+    echo "==================================================="
+    echo "              LAUNCHING SMS SPOOFER                "
+    echo "==================================================="
+    echo "Target:  $SMS_TARGET"
+    echo "Spoof:   $SMS_SPOOF"
+    echo "Message: ${SMS_MSG:0:50}${SMS_MSG:50:+"..."}"
+    echo "Count:   $SMS_COUNT"
+    echo "Threads: $SMS_THREADS"
+    echo "---------------------------------------------------"
+    echo ""
+
+    if [ ! -f "plugins/sms_spoofer.py" ]; then
+        echo "Error: plugins/sms_spoofer.py not found!"
+        echo "Please ensure the SMS spoofer script is in the plugins/ directory."
+        read -rp "Press Enter to continue..."
+        return
+    fi
+
+    python3 plugins/sms_spoofer.py \
+        --target "$SMS_TARGET" \
+        --spoof "$SMS_SPOOF" \
+        --msg "$SMS_MSG" \
+        --count "$SMS_COUNT" \
+        --threads "$SMS_THREADS"
+
+    echo ""
+    echo "---------------------------------------------------"
+    read -rp "Press Enter to continue..."
+}
+
 while true; do
     show_menu
-    read -rp "Select a tool [1-10]: " CHOICE
+    read -rp "Select a tool [1-11]: " CHOICE
     case "$CHOICE" in
         1) run_nmap ;;
         2) run_wireshark ;;
@@ -298,7 +357,8 @@ while true; do
         7) run_sherlock ;;
         8) run_tcp_scanner ;;
         9) run_aircrack ;;
-        10) echo "Goodbye!"; exit 0 ;;
+        10) run_sms_spoofer ;;
+        11) echo "Goodbye!"; exit 0 ;;
         *) echo "Invalid selection, please try again."; sleep 1 ;;
     esac
 done
