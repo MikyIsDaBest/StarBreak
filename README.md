@@ -37,4 +37,4 @@ If you wanna run Star Strike, you need to run it as Admin.
 
 Changelog: 
 27/7/26 Added CUPP (Common User Passwords Profiler) & Sherlock | added ascii graphics logo to the linux launcher
-28/7/26 Added our own TCP Scanner and AirCrack-ng options.
+28/7/26 Added our own TCP Scanner and AirCrack-ng options. | Added StarHunt, an alternative to sherlock, which is better and faster. Remodeled Launcher.
