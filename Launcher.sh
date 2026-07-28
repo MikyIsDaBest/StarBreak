@@ -108,7 +108,7 @@ run_starstrike() {
     read -rp "[3/4] Enter Payload Size in bytes (default 65455): " PAYLOAD
     PAYLOAD="${PAYLOAD:-65455}"
 
-    read -rp "[4/4] Enter Type (e.g. tcp, udp, icmp): " TYPE
+    read -rp "[4/4] Enter Type (e.g. tcp, udp, icmp. http): " TYPE
     TYPE="${TYPE:-tcp}"
 
     clear
@@ -139,7 +139,7 @@ run_custom_raw() {
     echo "            STARSTRIKE RAW COMMAND LAUNCHER        "
     echo "==================================================="
     echo "Type the full argument string to pass directly to starstrike.py"
-    echo "Example: --threads50 --payloadsize65455 --typetcp --victim192.168.0.1"
+    echo "Example: --threads50 --payloadsize65455 --typetcp --victim192.168.0.1 --noprint(doesn't print the output) --unlockport(attacks all ports)"
     echo "---------------------------------------------------"
     read -rp "Enter flags > " RAW_ARGS
 
