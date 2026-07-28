@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-ShadowHunt v2.0 - OSINT Username Search Engine
+StarHunt v2.0 - OSINT Username Search Engine
 Superior to Sherlock - covers 50+ platforms with zero API keys
 """
 
@@ -348,7 +348,7 @@ PLATFORMS = {
 }
 
 # ==================== CORE ENGINE ====================
-class ShadowHunt:
+class StarHunt:
     def __init__(self, username, timeout=10, threads=20):
         self.username = username
         self.timeout = timeout
@@ -403,7 +403,7 @@ class ShadowHunt:
 
     def scan(self):
         """Run the scan with threading"""
-        print(f"\n[+] ShadowHunt v2.0 - Scanning username: {self.username}")
+        print(f"\n[+] StarHunt v2.0 - Scanning username: {self.username}")
         print(f"[+] Platforms: {len(PLATFORMS)} | Threads: {self.threads}\n")
         
         with ThreadPoolExecutor(max_workers=self.threads) as executor:
@@ -427,7 +427,7 @@ class ShadowHunt:
     def display_results(self):
         """Display formatted results"""
         print("\n" + "="*60)
-        print(f"🔍 SHADOWHUNT RESULTS - {self.username}")
+        print(f"🔍 STARHUNT RESULTS - {self.username}")
         print("="*60)
         
         found = []
@@ -450,20 +450,20 @@ class ShadowHunt:
             print(f"  ... and {len(not_found)-20} more")
         
         # Save results to file
-        with open(f"shadowhunt_{self.username}.json", "w") as f:
+        with open(f"starhunt_{self.username}.json", "w") as f:
             json.dump(self.results, f, indent=2)
-        print(f"\n[+] Results saved to: shadowhunt_{self.username}.json")
+        print(f"\n[+] Results saved to: starhunt_{self.username}.json")
         
         # Generate clickable URLs
-        with open(f"shadowhunt_{self.username}_urls.txt", "w") as f:
+        with open(f"starhunt_{self.username}_urls.txt", "w") as f:
             for platform, data in self.results.items():
                 if data["found"]:
                     url = PLATFORMS[platform]["url"].format(username=self.username)
                     f.write(f"{platform}: {url}\n")
-        print(f"[+] URLs saved to: shadowhunt_{self.username}_urls.txt")
+        print(f"[+] URLs saved to: starhunt_{self.username}_urls.txt")
 
 def main():
-    parser = argparse.ArgumentParser(description="ShadowHunt - OSINT Username Search")
+    parser = argparse.ArgumentParser(description="StarHunt - OSINT Username Search")
     parser.add_argument("username", help="Username to search")
     parser.add_argument("--threads", type=int, default=20, help="Threads (default: 20)")
     parser.add_argument("--timeout", type=int, default=10, help="Timeout in seconds (default: 10)")
@@ -471,7 +471,7 @@ def main():
     
     args = parser.parse_args()
     
-    hunter = ShadowHunt(args.username, args.timeout, args.threads)
+    hunter = StarHunt(args.username, args.timeout, args.threads)
     hunter.scan()
     hunter.display_results()
 
