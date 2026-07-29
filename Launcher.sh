@@ -7,8 +7,25 @@ cd "$SCRIPT_DIR" || exit 1
 # Ensure directories exist
 mkdir -p plugins logs reports output
 
+# ==================== ANSI COLORS ====================
+NC='\033[0m'              # No Color / Reset
+BOLD='\033[1m'
+DIM='\033[2m'
+
+# Colors
+CYAN='\033[0;36m'
+B_CYAN='\033[1;36m'
+BLUE='\033[0;34m'
+B_BLUE='\033[1;34m'
+YELLOW='\033[1;33m'
+PURPLE='\033[0;35m'
+B_PURPLE='\033[1;35m'
+WHITE='\033[1;37m'
+RED='\033[0;31m'
+GRAY='\033[0;90m'
+
 # ==================== ASCII BANNERS ====================
-BANNER_NMAP="
+BANNER_NMAP="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │   ███╗   ██╗███╗   ███╗ █████╗ ██████╗              │
 │   ████╗  ██║████╗ ████║██╔══██╗██╔══██╗             │
@@ -17,17 +34,17 @@ BANNER_NMAP="
 │   ██║ ╚████║██║ ╚═╝ ██║██║  ██║██║                  │
 │   ╚═╝  ╚═══╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝                  │
 │            PORT SCANNER                             │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_WIRESHARK="
+BANNER_WIRESHARK="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │   ╚╗ ╔╗╔╗╔╗ ╔╗╔╗ ╔╗╔╗╔╗ ╔╗╔╗╔╗╔╗                 │
 │   ╔╝ ║║║║║║ ║║║║ ║║║║║║ ║║║║║║║║                 │
 │   ╚═╝╚╝╚╝╚╝ ╚╝╚╝ ╚╝╚╝╚╝ ╚╝╚╝╚╝╚╝                 │
 │            PACKET CAPTURE                           │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_NSLOOKUP="
+BANNER_NSLOOKUP="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │   ███╗   ██╗███████╗██╗      ██████╗  ██████╗     │
 │   ████╗  ██║██╔════╝██║     ██╔═══██╗██╔═══██╗    │
@@ -36,9 +53,9 @@ BANNER_NSLOOKUP="
 │   ██║ ╚████║███████║███████╗╚██████╔╝╚██████╔╝    │
 │   ╚═╝  ╚═══╝╚══════╝╚══════╝ ╚═════╝  ╚═════╝     │
 │            DNS LOOKUP                               │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_TCPSCANNER="
+BANNER_TCPSCANNER="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │    ████████╗ ██████╗██████╗                         │
 │    ╚══██╔══╝██╔════╝██╔══██╗                        │
@@ -47,9 +64,9 @@ BANNER_TCPSCANNER="
 │       ██║   ╚██████╗██║                             │
 │       ╚═╝    ╚═════╝╚═╝                             │
 │            PORT SCANNER                             │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_SUBDOMAIN="
+BANNER_SUBDOMAIN="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │   ███████╗██╗   ██╗██████╗ ██████╗  ██████╗        │
 │   ██╔════╝██║   ██║██╔══██╗██╔══██╗██╔═══██╗       │
@@ -58,9 +75,9 @@ BANNER_SUBDOMAIN="
 │   ███████║╚██████╔╝██████╔╝██████╔╝╚██████╔╝       │
 │   ╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝  ╚═════╝        │
 │            SUBDOMAIN ENUMERATION                    │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_SHERLOCK="
+BANNER_SHERLOCK="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │    ███████╗██╗  ██╗███████╗██████╗ ██╗      ██████╗ │
 │    ██╔════╝██║  ██║██╔════╝██╔══██╗██║     ██╔═══██╗│
@@ -69,9 +86,9 @@ BANNER_SHERLOCK="
 │    ███████║██║  ██║███████╗██║  ██║███████╗╚██████╔╝│
 │    ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ │
 │            OSINT LOOKUP                             │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_STARHUNT="
+BANNER_STARHUNT="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │    ███████╗████████╗ █████╗ ██████╗                 │
 │    ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗                │
@@ -86,9 +103,9 @@ BANNER_STARHUNT="
 │    ██║  ██║╚██████╔╝██║ ╚████║   ██║                │
 │    ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝                │
 │            ADVANCED OSINT - 50+ PLATFORMS           │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_BREACH="
+BANNER_BREACH="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │   ██████╗ ██████╗ ███████╗ █████╗  ██████╗██╗  ██╗  │
 │   ██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔════╝██║  ██║  │
@@ -97,9 +114,9 @@ BANNER_BREACH="
 │   ██████╔╝██║  ██║███████╗██║  ██║╚██████╗██║  ██║  │
 │   ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝  │
 │            BREACH CHECKER ENGINE                    │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_EMAIL="
+BANNER_EMAIL="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │   ███████╗███╗   ███╗ █████╗ ██╗██╗                 │
 │   ██╔════╝████╗ ████║██╔══██╗██║██║                 │
@@ -108,9 +125,9 @@ BANNER_EMAIL="
 │   ███████╗██║ ╚═╝ ██║██║  ██║██║███████╗            │
 │   ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝╚══════╝            │
 │            EMAIL HUNTER ENGINE                      │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_STARSTRIKE="
+BANNER_STARSTRIKE="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │    ███████╗████████╗ █████╗ ██████╗ ███████╗████████╗
 │    ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
@@ -119,9 +136,9 @@ BANNER_STARSTRIKE="
 │    ███████║   ██║   ██║  ██║██║  ██║███████║   ██║   │
 │    ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   │
 │             STRIKE ENGINE                           │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_METEOR="
+BANNER_METEOR="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │   ███╗   ███╗████████╗████████╗███████╗██████╗      │
 │   ████╗ ████║╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗     │
@@ -135,9 +152,9 @@ BANNER_METEOR="
 │    ╚════██║   ██║   ██╔══██╗██║██╔═██╗ ╚════██║     │
 │    ███████║   ██║   ██║  ██║██║██║  ██╗███████║     │
 │    ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝     │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_EXPLOIT="
+BANNER_EXPLOIT="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │   ███████╗██╗  ██╗██████╗ ██╗      ██████╗ ██╗████████╗
 │   ██╔════╝╚██╗██╔╝██╔══██╗██║     ██╔═══██╗██║╚══██╔══╝
@@ -146,9 +163,9 @@ BANNER_EXPLOIT="
 │   ███████╗██╔╝ ██╗██║     ███████╗╚██████╔╝██║   ██║   │
 │   ╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝ ╚═════╝ ╚═╝   ╚═╝   │
 │            EXPLOIT SUGGESTER                        │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_AIRCRACK="
+BANNER_AIRCRACK="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │    █████╗ ██╗██████╗  ██████╗██████╗  █████╗  ██████╗
 │   ██╔══██╗██║██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝
@@ -157,9 +174,9 @@ BANNER_AIRCRACK="
 │   ██║  ██║██║██║  ██║╚██████╗██║  ██║██║  ██║╚██████╗
 │   ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝
 │            WIRELESS SECURITY                        │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_SATELLITE="
+BANNER_SATELLITE="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │   ███████╗ █████╗ ████████╗███████╗██╗     ██╗      │
 │   ██╔════╝██╔══██╗╚══██╔══╝██╔════╝██║     ██║      │
@@ -174,9 +191,9 @@ BANNER_SATELLITE="
 │    ███████║██║  ██║██║  ██║██║  ██║╚██████╔╝        │
 │    ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝         │
 │            SATELLITE RECONNAISSANCE                 │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_PROXY="
+BANNER_PROXY="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │   ██████╗ ██████╗  ██████╗ ██╗  ██╗██╗   ██╗        │
 │   ██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝╚██╗ ██╔╝        │
@@ -185,20 +202,20 @@ BANNER_PROXY="
 │   ██║     ██║  ██║╚██████╔╝██╔╝ ██╗   ██║           │
 │   ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝           │
 │            PROXY/ANONYMITY ENGINE                   │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_STEGANO="
+BANNER_STEGANO="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │   ███████╗████████╗███████╗ ██████╗  █████╗         │
 │   ██╔════╝╚══██╔══╝██╔════╝██╔════╝ ██╔══██╗        │
 │   ███████╗   ██║   █████╗  ██║  ███╗███████║        │
 │   ╚════██║   ██║   ██╔══╝  ██║   ██║██╔══██║        │
 │   ███████║   ██║   ███████╗╚██████╔╝██║  ██║        │
-│   ╚══════╝   ╚═╝   ╚══════╝ ╚═════╝ ╚═╝  ╚═╝        │
+│   ╚══════╝   ╚═╝   ╚══════╝ ╚═════╝ ╚═════╝         │
 │            STEGANOGRAPHY SUITE                      │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_CUPP="
+BANNER_CUPP="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │    ██████╗██╗   ██╗██████╗ ██████╗                  │
 │   ██╔════╝██║   ██║██╔══██╗██╔══██╗                 │
@@ -207,9 +224,9 @@ BANNER_CUPP="
 │   ╚██████╗╚██████╔╝██║     ██║                      │
 │    ╚═════╝ ╚═════╝ ╚═╝     ╚═╝                      │
 │            PASSWORD PROFILER                        │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
-BANNER_SMSSPOOFER="
+BANNER_SMSSPOOFER="${CYAN}
 ┌─────────────────────────────────────────────────────┐
 │    ███████╗███╗   ███╗███████╗                      │
 │    ██╔════╝████╗ ████║██╔════╝                      │
@@ -224,353 +241,363 @@ BANNER_SMSSPOOFER="
 │    ███████║██║     ╚██████╔╝╚██████╔╝███████╗██║  ██║
 │    ╚══════╝╚═╝      ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝
 │            FREE SMS SPOOFING ENGINE                 │
-└─────────────────────────────────────────────────────┘"
+└─────────────────────────────────────────────────────┘${NC}"
 
 # ==================== MENU ====================
 show_menu() {
     clear
-    echo "================================================================="
-    echo "    ____ _____  _    ____    ____  ____  _____    _    _  __ "
-    echo "   / ___|_   _|/ \  |  _ \  | __ )|  _ \| ____|  / \  | |/ / "
-    echo "   \___ \ | | / _ \ | |_) | |  _ \| |_) |  _|   / _ \ | ' /  "
-    echo "    ___) || |/ ___ \|  _ <  | |_) |  _ <| |___ / ___ \| . \  "
-    echo "   |____/ |_/_/   \_\_| \_\ |____/|_| \_\_____/_/   \_\_|\_\ "
+    echo -e "${B_BLUE}=================================================================${NC}"
+    echo -e "${B_CYAN}    ____ _____  _    ____    ____  ____  _____    _    _  __ ${NC}"
+    echo -e "${B_CYAN}   / ___|_   _|/ \  |  _ \  | __ )|  _ \| ____|  / \  | |/ / ${NC}"
+    echo -e "${B_CYAN}   \___ \ | | / _ \ | |_) | |  _ \| |_) |  _|   / _ \ | ' /  ${NC}"
+    echo -e "${B_CYAN}    ___) || |/ ___ \|  _ <  | |_) |  _ <| |___ / ___ \| . \  ${NC}"
+    echo -e "${B_CYAN}   |____/ |_/_/   \_\_| \_\ |____/|_| \_\_____/_/   \_\_|\_\ ${NC}"
     echo ""
-    echo "                     Made by N E T W O R K 0              "
-    echo "================================================================="
-    echo "                     NETWORK AND SECURITY SUITE           "
-    echo "================================================================="
+    echo -e "${GRAY}                     Made by ${WHITE}N E T W O R K 0${NC}"
+    echo -e "${B_BLUE}=================================================================${NC}"
+    echo -e "${B_PURPLE}                     NETWORK AND SECURITY SUITE           ${NC}"
+    echo -e "${B_BLUE}=================================================================${NC}"
     echo ""
-    echo "   ═══ NETWORK & SCANNING ═══"
-    echo "   [1]  Nmap - Port & Network Discovery"
-    echo "   [2]  Wireshark - Packet Capture"
-    echo "   [3]  Nslookup - DNS Lookup"
-    echo "   [4]  TCP Port Scanner"
-    echo "   [5]  Subdomain Enumerator"
+    echo -e "${YELLOW}   ═══ NETWORK & SCANNING ═══${NC}"
+    echo -e "   [${B_CYAN}1${NC}]  Nmap - Port & Network Discovery"
+    echo -e "   [${B_CYAN}2${NC}]  Wireshark - Packet Capture"
+    echo -e "   [${B_CYAN}3${NC}]  Nslookup - DNS Lookup"
+    echo -e "   [${B_CYAN}4${NC}]  TCP Port Scanner"
+    echo -e "   [${B_CYAN}5${NC}]  Subdomain Enumerator"
     echo ""
-    echo "   ═══ OSINT & RECON ═══"
-    echo "   [6]  Sherlock - OSINT Username Lookup"
-    echo "   [7]  StarHunt - Advanced OSINT (50+ Platforms)"
-    echo "   [8]  Breach Checker - Database Leak Search"
-    echo "   [9]  Email Hunter"
+    echo -e "${YELLOW}   ═══ OSINT & RECON ═══${NC}"
+    echo -e "   [${B_CYAN}6${NC}]  Sherlock - OSINT Username Lookup"
+    echo -e "   [${B_CYAN}7${NC}]  StarHunt - Advanced OSINT (50+ Platforms)"
+    echo -e "   [${B_CYAN}8${NC}]  Breach Checker - Database Leak Search"
+    echo -e "   [${B_CYAN}9${NC}]  Email Hunter"
     echo ""
-    echo "   ═══ EXPLOITATION & DOS ═══"
-    echo "   [10] StarStrike - Guided Attack Engine"
-    echo "   [11] StarStrike - Custom Raw Command"
-    echo "   [12] M3T30R STR!K3 - Multi-Protocol DoS"
-    echo "   [13] Exploit Suggester"
+    echo -e "${YELLOW}   ═══ EXPLOITATION & DOS ═══${NC}"
+    echo -e "   [${B_CYAN}10${NC}] StarStrike - Guided Attack Engine"
+    echo -e "   [${B_CYAN}11${NC}] StarStrike - Custom Raw Command"
+    echo -e "   [${B_CYAN}12${NC}] M3T30R STR!K3 - Multi-Protocol DoS"
+    echo -e "   [${B_CYAN}13${NC}] Exploit Suggester"
     echo ""
-    echo "   ═══ WIRELESS & PHYSICAL ═══"
-    echo "   [14] Aircrack-ng - Wireless Security"
-    echo "   [15] Satellite Reconnaissance"
+    echo -e "${YELLOW}   ═══ WIRELESS & PHYSICAL ═══${NC}"
+    echo -e "   [${B_CYAN}14${NC}] Aircrack-ng - Wireless Security"
+    echo -e "   [${B_CYAN}15${NC}] Satellite Reconnaissance"
     echo ""
-    echo "   ═══ ANONYMITY & STEALTH ═══"
-    echo "   [16] Proxy/Anonymity Engine"
-    echo "   [17] Steganography Suite"
+    echo -e "${YELLOW}   ═══ ANONYMITY & STEALTH ═══${NC}"
+    echo -e "   [${B_CYAN}16${NC}] Proxy/Anonymity Engine"
+    echo -e "   [${B_CYAN}17${NC}] Steganography Suite"
     echo ""
-    echo "   ═══ PASSWORD & CREDENTIALS ═══"
-    echo "   [18] CUPP - Password Profiler"
-    echo "   [19] SMS Spoofer - Free SMS Spoofing"
+    echo -e "${YELLOW}   ═══ PASSWORD & CREDENTIALS ═══${NC}"
+    echo -e "   [${B_CYAN}18${NC}] CUPP - Password Profiler"
+    echo -e "   [${B_CYAN}19${NC}] SMS Spoofer - Free SMS Spoofing"
     echo ""
-    echo "   [20] Exit"
-    echo "================================================================="
+    echo -e "   [${RED}20${NC}] ${RED}Exit${NC}"
+    echo -e "${B_BLUE}=================================================================${NC}"
+}
+
+# Helper function for user inputs
+prompt_input() {
+    local text="$1"
+    echo -ne "${B_CYAN}[?]${NC} ${WHITE}${text}${NC}"
+}
+
+# Helper function for errors
+show_error() {
+    echo -e "${RED}[!] Error:${NC} $1"
 }
 
 # ==================== FUNCTIONS ====================
 run_nmap() {
     clear
-    echo "$BANNER_NMAP"
-    echo ""
+    echo -e "$BANNER_NMAP\n"
     if ! command -v nmap &> /dev/null; then
-        echo "Error: Nmap is not installed. Install with: sudo apt install nmap"
-        read -rp "Press Enter to continue..."
+        show_error "Nmap is not installed. Install with: sudo apt install nmap"
+        read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
         return
     fi
-    read -rp "Enter Target IP/Subnet: " TARGET
+    prompt_input "Enter Target IP/Subnet: "; read -r TARGET
     [ -z "$TARGET" ] && return
-    read -rp "Enter Scan Flags (default -F): " FLAGS
+    prompt_input "Enter Scan Flags (default -F): "; read -r FLAGS
     FLAGS="${FLAGS:--F}"
     echo ""
     nmap $FLAGS "$TARGET"
     echo ""
-    read -rp "Press Enter to continue..."
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_wireshark() {
     clear
-    echo "$BANNER_WIRESHARK"
-    echo ""
+    echo -e "$BANNER_WIRESHARK\n"
     if command -v wireshark &> /dev/null; then
+        echo -e "${CYAN}[*] Launching Wireshark in background...${NC}"
         wireshark &
     else
-        echo "Error: Wireshark not installed."
+        show_error "Wireshark not installed."
     fi
-    read -rp "Press Enter to continue..."
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_nslookup() {
     clear
-    echo "$BANNER_NSLOOKUP"
-    echo ""
-    read -rp "Enter Domain or IP: " TARGET
+    echo -e "$BANNER_NSLOOKUP\n"
+    prompt_input "Enter Domain or IP: "; read -r TARGET
     [ -z "$TARGET" ] && return
     echo ""
     nslookup "$TARGET"
     echo ""
-    read -rp "Press Enter to continue..."
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_tcp_scanner() {
     clear
-    echo "$BANNER_TCPSCANNER"
-    echo ""
-    read -rp "Enter Target IP/Hostname: " TARGET
+    echo -e "$BANNER_TCPSCANNER\n"
+    prompt_input "Enter Target IP/Hostname: "; read -r TARGET
     [ -z "$TARGET" ] && return
-    read -rp "Enter Start Port (default 1): " START
+    prompt_input "Enter Start Port (default 1): "; read -r START
     START="${START:-1}"
-    read -rp "Enter End Port (default 1024): " END
+    prompt_input "Enter End Port (default 1024): "; read -r END
     END="${END:-1024}"
     echo ""
-    if [ -f "plugins/tcp_scanner.py" ]; then
-        python3 plugins/tcp_scanner.py --target "$TARGET" --start "$START" --end "$END"
+    if [ -f "$SCRIPT_DIR/plugins/tcp_scanner.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/tcp_scanner.py" --target "$TARGET" --start "$START" --end "$END"
     else
-        echo "Error: plugins/tcp_scanner.py not found!"
+        show_error "$SCRIPT_DIR/plugins/tcp_scanner.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_subdomain_enum() {
     clear
-    echo "$BANNER_SUBDOMAIN"
-    echo ""
-    read -rp "Enter Domain: " DOMAIN
+    echo -e "$BANNER_SUBDOMAIN\n"
+    prompt_input "Enter Domain: "; read -r DOMAIN
     [ -z "$DOMAIN" ] && return
-    read -rp "Enter Threads (default 20): " THREADS
+    prompt_input "Enter Threads (default 20): "; read -r THREADS
     THREADS="${THREADS:-20}"
     echo ""
-    if [ -f "plugins/subdomain_enum.py" ]; then
-        python3 plugins/subdomain_enum.py --domain "$DOMAIN" --threads "$THREADS"
+    if [ -f "$SCRIPT_DIR/plugins/subdomain_enum.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/subdomain_enum.py" --domain "$DOMAIN" --threads "$THREADS"
     else
-        echo "Error: plugins/subdomain_enum.py not found!"
+        show_error "$SCRIPT_DIR/plugins/subdomain_enum.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_sherlock() {
     clear
-    echo "$BANNER_SHERLOCK"
-    echo ""
-    read -rp "Enter Username: " USERNAME
+    echo -e "$BANNER_SHERLOCK\n"
+    prompt_input "Enter Username: "; read -r USERNAME
     [ -z "$USERNAME" ] && return
     echo ""
     if command -v sherlock &> /dev/null; then
         sherlock "$USERNAME"
-    elif [ -f "plugins/sherlock/sherlock.py" ]; then
-        python3 plugins/sherlock/sherlock.py "$USERNAME"
+    elif [ -f "$SCRIPT_DIR/plugins/sherlock/sherlock.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/sherlock/sherlock.py" "$USERNAME"
     else
-        echo "Error: Sherlock not found globally or in plugins/sherlock/"
+        show_error "Sherlock not found globally or in $SCRIPT_DIR/plugins/sherlock/"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_starhunt() {
     clear
-    echo "$BANNER_STARHUNT"
-    echo ""
-    read -rp "Enter Target: " TARGET
+    echo -e "$BANNER_STARHUNT\n"
+    prompt_input "Enter Target: "; read -r TARGET
     [ -z "$TARGET" ] && return
     echo ""
-    if [ -f "plugins/starhunt.py" ]; then
-        python3 plugins/starhunt.py "$TARGET"
+    if [ -f "$SCRIPT_DIR/plugins/starhunt.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/starhunt.py" "$TARGET"
     else
-        echo "Error: plugins/starhunt.py not found!"
+        show_error "$SCRIPT_DIR/plugins/starhunt.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_breach() {
     clear
-    echo "$BANNER_BREACH"
-    echo ""
-    read -rp "Enter Target Query: " TARGET
+    echo -e "$BANNER_BREACH\n"
+    prompt_input "Enter Target Query: "; read -r TARGET
     [ -z "$TARGET" ] && return
     echo ""
-    if [ -f "plugins/breach_checker.py" ]; then
-        python3 plugins/breach_checker.py "$TARGET"
+    if [ -f "$SCRIPT_DIR/plugins/breach_checker.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/breach_checker.py" "$TARGET"
     else
-        echo "Error: plugins/breach_checker.py not found!"
+        show_error "$SCRIPT_DIR/plugins/breach_checker.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_email() {
     clear
-    echo "$BANNER_EMAIL"
-    echo ""
-    read -rp "Enter Target Domain/Email: " TARGET
+    echo -e "$BANNER_EMAIL\n"
+    prompt_input "Enter Target Domain/Email: "; read -r TARGET
     [ -z "$TARGET" ] && return
     echo ""
-    if [ -f "plugins/email_hunter.py" ]; then
-        python3 plugins/email_hunter.py "$TARGET"
+    if [ -f "$SCRIPT_DIR/plugins/email_hunter.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/email_hunter.py" "$TARGET"
     else
-        echo "Error: plugins/email_hunter.py not found!"
+        show_error "$SCRIPT_DIR/plugins/email_hunter.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_starstrike() {
     clear
-    echo "$BANNER_STARSTRIKE"
-    echo ""
-    read -rp "Enter Target: " TARGET
+    echo -e "$BANNER_STARSTRIKE\n"
+    prompt_input "Enter Target: "; read -r TARGET
     [ -z "$TARGET" ] && return
     echo ""
-    if [ -f "plugins/starstrike.py" ]; then
-        python3 plugins/starstrike.py "$TARGET"
+    if [ -f "$SCRIPT_DIR/plugins/starstrike.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/starstrike.py" "$TARGET"
     else
-        echo "Error: plugins/starstrike.py not found!"
+        show_error "$SCRIPT_DIR/plugins/starstrike.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_custom_raw() {
     clear
-    echo "$BANNER_STARSTRIKE"
-    echo ""
-    read -rp "Enter Custom Command: " CMD
+    echo -e "$BANNER_STARSTRIKE\n"
+    prompt_input "Enter Custom Command: "; read -r CMD
     [ -z "$CMD" ] && return
     echo ""
-    if [ -f "plugins/starstrike_raw.py" ]; then
-        python3 plugins/starstrike_raw.py --cmd "$CMD"
+    if [ -f "$SCRIPT_DIR/plugins/starstrike_raw.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/starstrike_raw.py" --cmd "$CMD"
     else
-        echo "Error: plugins/starstrike_raw.py not found!"
+        show_error "$SCRIPT_DIR/plugins/starstrike_raw.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_meteor() {
     clear
-    echo "$BANNER_METEOR"
-    echo ""
-    read -rp "Enter Target IP/Hostname: " TARGET
+    echo -e "$BANNER_METEOR\n"
+    prompt_input "Enter Target IP/Hostname: "; read -r TARGET
     [ -z "$TARGET" ] && return
     echo ""
-    if [ -f "plugins/meteor.py" ]; then
-        python3 plugins/meteor.py "$TARGET"
+    if [ -f "$SCRIPT_DIR/plugins/meteor.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/meteor.py" "$TARGET"
     else
-        echo "Error: plugins/meteor.py not found!"
+        show_error "$SCRIPT_DIR/plugins/meteor.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_exploit() {
     clear
-    echo "$BANNER_EXPLOIT"
-    echo ""
-    read -rp "Enter Target System/Service: " TARGET
+    echo -e "$BANNER_EXPLOIT\n"
+    prompt_input "Enter Target System/Service: "; read -r TARGET
     [ -z "$TARGET" ] && return
     echo ""
-    if [ -f "plugins/exploit_suggester.py" ]; then
-        python3 plugins/exploit_suggester.py "$TARGET"
+    if [ -f "$SCRIPT_DIR/plugins/exploit_suggester.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/exploit_suggester.py" "$TARGET"
     else
-        echo "Error: plugins/exploit_suggester.py not found!"
+        show_error "$SCRIPT_DIR/plugins/exploit_suggester.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_aircrack() {
     clear
-    echo "$BANNER_AIRCRACK"
-    echo ""
+    echo -e "$BANNER_AIRCRACK\n"
     if ! command -v aircrack-ng &> /dev/null; then
-        echo "Error: aircrack-ng is not installed."
-        read -rp "Press Enter to continue..."
+        show_error "aircrack-ng is not installed."
+        read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
         return
     fi
-    read -rp "Enter Target Cap File: " CAPFILE
+    prompt_input "Enter Target Cap File: "; read -r CAPFILE
     [ -z "$CAPFILE" ] && return
     echo ""
     if [ -f "$CAPFILE" ]; then
         aircrack-ng "$CAPFILE"
     else
-        echo "Error: $CAPFILE not found!"
+        show_error "$CAPFILE not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_satellite() {
     clear
-    echo "$BANNER_SATELLITE"
-    echo ""
-    read -rp "Enter Target Coordinates/Area: " TARGET
+    echo -e "$BANNER_SATELLITE\n"
+    prompt_input "Enter Target Coordinates/Area: "; read -r TARGET
     [ -z "$TARGET" ] && return
     echo ""
-    if [ -f "plugins/satellite_recon.py" ]; then
-        python3 plugins/satellite_recon.py "$TARGET"
+    if [ -f "$SCRIPT_DIR/plugins/satellite_recon.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/satellite_recon.py" "$TARGET"
     else
-        echo "Error: plugins/satellite_recon.py not found!"
+        show_error "$SCRIPT_DIR/plugins/satellite_recon.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_proxy() {
     clear
-    echo "$BANNER_PROXY"
-    echo ""
-    if [ -f "plugins/proxy_engine.py" ]; then
-        python3 plugins/proxy_engine.py
+    echo -e "$BANNER_PROXY\n"
+    if [ -f "$SCRIPT_DIR/plugins/proxy_engine.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/proxy_engine.py"
     else
-        echo "Error: plugins/proxy_engine.py not found!"
+        show_error "$SCRIPT_DIR/plugins/proxy_engine.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_stegano() {
     clear
-    echo "$BANNER_STEGANO"
-    echo ""
-    read -rp "Enter Image Path: " IMG
+    echo -e "$BANNER_STEGANO\n"
+    prompt_input "Enter Image Path: "; read -r IMG
     [ -z "$IMG" ] && return
     echo ""
-    if [ -f "plugins/stegano.py" ]; then
-        python3 plugins/stegano.py "$IMG"
+    if [ -f "$SCRIPT_DIR/plugins/stegano.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/stegano.py" "$IMG"
     else
-        echo "Error: plugins/stegano.py not found!"
+        show_error "$SCRIPT_DIR/plugins/stegano.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_cupp() {
     clear
-    echo "$BANNER_CUPP"
-    echo ""
-    if [ -f "plugins/cupp/cupp.py" ]; then
-        python3 plugins/cupp/cupp.py -i
+    echo -e "$BANNER_CUPP\n"
+    if [ -f "$SCRIPT_DIR/plugins/cupp/cupp.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/cupp/cupp.py" -i
     else
-        echo "Error: plugins/cupp/cupp.py not found!"
+        show_error "$SCRIPT_DIR/plugins/cupp/cupp.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 run_sms_spoofer() {
     clear
-    echo "$BANNER_SMSSPOOFER"
-    echo ""
-    read -rp "Enter Target Phone Number: " TARGET
+    echo -e "$BANNER_SMSSPOOFER\n"
+    prompt_input "Enter Target Phone Number: "; read -r TARGET
     [ -z "$TARGET" ] && return
     echo ""
-    if [ -f "plugins/sms_spoofer.py" ]; then
-        python3 plugins/sms_spoofer.py "$TARGET"
+    if [ -f "$SCRIPT_DIR/plugins/sms_spoofer.py" ]; then
+        python3 "$SCRIPT_DIR/plugins/sms_spoofer.py" "$TARGET"
     else
-        echo "Error: plugins/sms_spoofer.py not found!"
+        show_error "$SCRIPT_DIR/plugins/sms_spoofer.py not found!"
     fi
-    read -rp "Press Enter to continue..."
+    echo ""
+    read -rp "$(echo -e ${GRAY}Press Enter to continue...${NC})"
 }
 
 # ==================== MAIN EXECUTION LOOP ====================
 while true; do
     show_menu
-    read -rp "Select an option [1-20]: " CHOICE
+    echo -ne "${B_CYAN}[>] Select an option [1-20]: ${NC}"
+    read -r CHOICE
     case "$CHOICE" in
         1)  run_nmap ;;
         2)  run_wireshark ;;
@@ -591,7 +618,7 @@ while true; do
         17) run_stegano ;;
         18) run_cupp ;;
         19) run_sms_spoofer ;;
-        20) echo "Exiting..."; exit 0 ;;
-        *)  echo "Invalid option!"; sleep 1 ;;
+        20) echo -e "${RED}Exiting...${NC}"; exit 0 ;;
+        *)  echo -e "${RED}Invalid option!${NC}"; sleep 1 ;;
     esac
 done
