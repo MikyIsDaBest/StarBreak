@@ -4,11 +4,8 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR" || exit 1
 
-# Ensure plugins directory exists
-mkdir -p plugins
-mkdir -p logs
-mkdir -p reports
-mkdir -p output
+# Ensure directories exist
+mkdir -p plugins logs reports output
 
 # ==================== ASCII BANNERS ====================
 BANNER_NMAP="
@@ -220,7 +217,7 @@ BANNER_SMSSPOOFER="
 │   ╚════██║██║╚██╔╝██║╚════██║                      │
 │   ███████║██║ ╚═╝ ██║███████║                      │
 │   ╚══════╝╚═╝     ╚═╝╚══════╝                      │
-│   ███████╗██████╗  ██████╗  ██████╗ ███████╗██████╗│
+│   ███████╗██████╗  ██████╗  ██████╗ ███████╗██████╗
 │   ██╔════╝██╔══██╗██╔═══██╗██╔═══██╗██╔════╝██╔══██╗
 │   ███████╗██████╔╝██║   ██║██║   ██║█████╗  ██████╔╝
 │   ╚════██║██╔═══╝ ██║   ██║██║   ██║██╔══╝  ██╔══██╗
@@ -337,4 +334,35 @@ run_tcp_scanner() {
     if [ -f "plugins/tcp_scanner.py" ]; then
         python3 plugins/tcp_scanner.py --target "$TARGET" --start "$START" --end "$END"
     else
-        echo "
+        echo "Error: plugins/tcp_scanner.py not found!"
+    fi
+    read -rp "Press Enter to continue..."
+}
+
+run_subdomain_enum() {
+    clear
+    echo "$BANNER_SUBDOMAIN"
+    echo ""
+    read -rp "Enter Domain: " DOMAIN
+    [ -z "$DOMAIN" ] && return
+    read -rp "Enter Threads (default 20): " THREADS
+    THREADS="${THREADS:-20}"
+    echo ""
+    if [ -f "plugins/subdomain_enum.py" ]; then
+        python3 plugins/subdomain_enum.py --domain "$DOMAIN" --threads "$THREADS"
+    else
+        echo "Error: plugins/subdomain_enum.py not found!"
+    fi
+    read -rp "Press Enter to continue..."
+}
+
+run_sherlock() {
+    clear
+    echo "$BANNER_SHERLOCK"
+    echo ""
+    read -rp "Enter Username: " USERNAME
+    [ -z "$USERNAME" ] && return
+    echo ""
+    if command -v sherlock &> /dev/null; then
+        sherlock "$USERNAME"
+    elif [ -
