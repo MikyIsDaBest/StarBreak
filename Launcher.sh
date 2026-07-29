@@ -133,7 +133,7 @@ BANNER_METEOR="
 │    ██╔════╝╚══██╔══╝██╔══██╗██║██║ ██╔╝██╔════╝     │
 │    ███████╗   ██║   ██████╔╝██║█████╔╝ ███████╗     │
 │    ╚════██║   ██║   ██╔══██╗██║██╔═██╗ ╚════██║     │
-│    ███████║   ██║   ██║  ██║██║██║  ██╗███████╗     │
+│    ███████║   ██║   ██║  ██║██║██║  ██╗███████║     │
 │    ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝     │
 └─────────────────────────────────────────────────────┘"
 
@@ -377,7 +377,14 @@ run_starhunt() {
     clear
     echo "$BANNER_STARHUNT"
     echo ""
-    echo "[!] UI Module Only"
+    read -rp "Enter Target: " TARGET
+    [ -z "$TARGET" ] && return
+    echo ""
+    if [ -f "plugins/starhunt.py" ]; then
+        python3 plugins/starhunt.py "$TARGET"
+    else
+        echo "Error: plugins/starhunt.py not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
@@ -385,7 +392,14 @@ run_breach() {
     clear
     echo "$BANNER_BREACH"
     echo ""
-    echo "[!] UI Module Only"
+    read -rp "Enter Target Query: " TARGET
+    [ -z "$TARGET" ] && return
+    echo ""
+    if [ -f "plugins/breach_checker.py" ]; then
+        python3 plugins/breach_checker.py "$TARGET"
+    else
+        echo "Error: plugins/breach_checker.py not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
@@ -393,7 +407,14 @@ run_email() {
     clear
     echo "$BANNER_EMAIL"
     echo ""
-    echo "[!] UI Module Only"
+    read -rp "Enter Target Domain/Email: " TARGET
+    [ -z "$TARGET" ] && return
+    echo ""
+    if [ -f "plugins/email_hunter.py" ]; then
+        python3 plugins/email_hunter.py "$TARGET"
+    else
+        echo "Error: plugins/email_hunter.py not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
@@ -401,7 +422,14 @@ run_starstrike() {
     clear
     echo "$BANNER_STARSTRIKE"
     echo ""
-    echo "[!] UI Module Only"
+    read -rp "Enter Target: " TARGET
+    [ -z "$TARGET" ] && return
+    echo ""
+    if [ -f "plugins/starstrike.py" ]; then
+        python3 plugins/starstrike.py "$TARGET"
+    else
+        echo "Error: plugins/starstrike.py not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
@@ -409,7 +437,14 @@ run_custom_raw() {
     clear
     echo "$BANNER_STARSTRIKE"
     echo ""
-    echo "[!] UI Module Only"
+    read -rp "Enter Custom Command: " CMD
+    [ -z "$CMD" ] && return
+    echo ""
+    if [ -f "plugins/starstrike_raw.py" ]; then
+        python3 plugins/starstrike_raw.py --cmd "$CMD"
+    else
+        echo "Error: plugins/starstrike_raw.py not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
@@ -417,7 +452,14 @@ run_meteor() {
     clear
     echo "$BANNER_METEOR"
     echo ""
-    echo "[!] UI Module Only"
+    read -rp "Enter Target IP/Hostname: " TARGET
+    [ -z "$TARGET" ] && return
+    echo ""
+    if [ -f "plugins/meteor.py" ]; then
+        python3 plugins/meteor.py "$TARGET"
+    else
+        echo "Error: plugins/meteor.py not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
@@ -425,7 +467,14 @@ run_exploit() {
     clear
     echo "$BANNER_EXPLOIT"
     echo ""
-    echo "[!] UI Module Only"
+    read -rp "Enter Target System/Service: " TARGET
+    [ -z "$TARGET" ] && return
+    echo ""
+    if [ -f "plugins/exploit_suggester.py" ]; then
+        python3 plugins/exploit_suggester.py "$TARGET"
+    else
+        echo "Error: plugins/exploit_suggester.py not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
@@ -440,7 +489,12 @@ run_aircrack() {
     fi
     read -rp "Enter Target Cap File: " CAPFILE
     [ -z "$CAPFILE" ] && return
-    aircrack-ng "$CAPFILE"
+    echo ""
+    if [ -f "$CAPFILE" ]; then
+        aircrack-ng "$CAPFILE"
+    else
+        echo "Error: $CAPFILE not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
@@ -448,7 +502,14 @@ run_satellite() {
     clear
     echo "$BANNER_SATELLITE"
     echo ""
-    echo "[!] UI Module Only"
+    read -rp "Enter Target Coordinates/Area: " TARGET
+    [ -z "$TARGET" ] && return
+    echo ""
+    if [ -f "plugins/satellite_recon.py" ]; then
+        python3 plugins/satellite_recon.py "$TARGET"
+    else
+        echo "Error: plugins/satellite_recon.py not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
@@ -456,7 +517,11 @@ run_proxy() {
     clear
     echo "$BANNER_PROXY"
     echo ""
-    echo "[!] UI Module Only"
+    if [ -f "plugins/proxy_engine.py" ]; then
+        python3 plugins/proxy_engine.py
+    else
+        echo "Error: plugins/proxy_engine.py not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
@@ -464,7 +529,14 @@ run_stegano() {
     clear
     echo "$BANNER_STEGANO"
     echo ""
-    echo "[!] UI Module Only"
+    read -rp "Enter Image Path: " IMG
+    [ -z "$IMG" ] && return
+    echo ""
+    if [ -f "plugins/stegano.py" ]; then
+        python3 plugins/stegano.py "$IMG"
+    else
+        echo "Error: plugins/stegano.py not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
@@ -475,7 +547,7 @@ run_cupp() {
     if [ -f "plugins/cupp/cupp.py" ]; then
         python3 plugins/cupp/cupp.py -i
     else
-        echo "Error: CUPP not found in plugins/cupp/cupp.py"
+        echo "Error: plugins/cupp/cupp.py not found!"
     fi
     read -rp "Press Enter to continue..."
 }
@@ -484,7 +556,14 @@ run_sms_spoofer() {
     clear
     echo "$BANNER_SMSSPOOFER"
     echo ""
-    echo "[!] UI Module Only"
+    read -rp "Enter Target Phone Number: " TARGET
+    [ -z "$TARGET" ] && return
+    echo ""
+    if [ -f "plugins/sms_spoofer.py" ]; then
+        python3 plugins/sms_spoofer.py "$TARGET"
+    else
+        echo "Error: plugins/sms_spoofer.py not found!"
+    fi
     read -rp "Press Enter to continue..."
 }
 
