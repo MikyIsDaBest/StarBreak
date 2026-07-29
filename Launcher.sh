@@ -364,5 +364,4 @@ run_sherlock() {
     [ -z "$USERNAME" ] && return
     echo ""
     if command -v sherlock &> /dev/null; then
-        sherlock "$USERNAME"
-    elif [ -
+        sherlock
