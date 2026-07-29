@@ -344,6 +344,307 @@ PLATFORMS = {
         "check": "text/html",
         "positive": "404",
         "negative": "profile"
+    },
+    #added 50 more by solez
+    "threads": {
+        "url": "https://www.threads.net/@{username}",
+        "check": "text/html",
+        "positive": "Sorry, this page isn't available",
+        "negative": "profile"
+    },
+    "mastodon": {
+        "url": "https://mastodon.social/@{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "vk": {
+        "url": "https://vk.com/{username}",
+        "check": "text/html",
+        "positive": "Page not found",
+        "negative": "profile"
+    },
+    "okru": {
+        "url": "https://ok.ru/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "linkedin": {
+        "url": "https://www.linkedin.com/in/{username}",
+        "check": "text/html",
+        "positive": "Page not found",
+        "negative": "profile"
+    },
+    "xing": {
+        "url": "https://www.xing.com/profile/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "ello": {
+        "url": "https://ello.co/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "vero": {
+        "url": "https://vero.co/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "foursquare": {
+        "url": "https://foursquare.com/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "yelp": {
+        "url": "https://www.yelp.com/user_details?userid={username}",
+        "check": "text/html",
+        "positive": "Page Not Found",
+        "negative": "profile"
+    },
+    "tripadvisor": {
+        "url": "https://www.tripadvisor.com/members/{username}",
+        "check": "text/html",
+        "positive": "Page Not Found",
+        "negative": "profile"
+    },
+    "letterboxd": {
+        "url": "https://letterboxd.com/{username}/",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "films"
+    },
+    "goodreads": {
+        "url": "https://www.goodreads.com/{username}",
+        "check": "text/html",
+        "positive": "Page not found",
+        "negative": "shelf"
+    },
+    "anilist": {
+        "url": "https://anilist.co/user/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "myanimelist": {
+        "url": "https://myanimelist.net/profile/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "steam": {
+        "url": "https://steamcommunity.com/id/{username}",
+        "check": "text/html",
+        "positive": "The specified profile could not be found",
+        "negative": "profile"
+    },
+    "roblox": {
+        "url": "https://www.roblox.com/user.aspx?username={username}",
+        "check": "text/html",
+        "positive": "Page cannot be found",
+        "negative": "profile"
+    },
+    "itchio": {
+        "url": "https://{username}.itch.io/",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "game"
+    },
+    "kaggle": {
+        "url": "https://www.kaggle.com/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "notebook"
+    },
+    "replit": {
+        "url": "https://replit.com/@{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "repl"
+    },
+    "codepen": {
+        "url": "https://codepen.io/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "pen"
+    },
+    "gitlab": {
+        "url": "https://gitlab.com/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "bitbucket": {
+        "url": "https://bitbucket.org/{username}/",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "repo"
+    },
+    "npm": {
+        "url": "https://www.npmjs.com/~{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "package"
+    },
+    "pypi": {
+        "url": "https://pypi.org/user/{username}/",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "package"
+    },
+    "dockerhub": {
+        "url": "https://hub.docker.com/u/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "repository"
+    },
+    "trello": {
+        "url": "https://trello.com/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "board"
+    },
+    "notion": {
+        "url": "https://www.notion.so/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "page"
+    },
+    "figma": {
+        "url": "https://www.figma.com/@{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "500px": {
+        "url": "https://500px.com/p/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "photo"
+    },
+    "unsplash": {
+        "url": "https://unsplash.com/@{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "photo"
+    },
+    "artstation": {
+        "url": "https://www.artstation.com/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "artwork"
+    },
+    "newgrounds": {
+        "url": "https://{username}.newgrounds.com/",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "lastfm": {
+        "url": "https://www.last.fm/user/{username}",
+        "check": "text/html",
+        "positive": "Page Not Found",
+        "negative": "scrobble"
+    },
+    "discogs": {
+        "url": "https://www.discogs.com/user/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "collection"
+    },
+    "vsco": {
+        "url": "https://vsco.co/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "gallery"
+    },
+    "clubhouse": {
+        "url": "https://www.clubhouse.com/@{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "bereal": {
+        "url": "https://bere.al/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "lemmy": {
+        "url": "https://lemmy.world/u/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "kofi": {
+        "url": "https://ko-fi.com/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "support"
+    },
+    "buymeacoffee": {
+        "url": "https://www.buymeacoffee.com/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "supporters"
+    },
+    "gumroad": {
+        "url": "https://{username}.gumroad.com/",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "product"
+    },
+    "etsy": {
+        "url": "https://www.etsy.com/shop/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "shop"
+    },
+    "venmo": {
+        "url": "https://venmo.com/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "cashapp": {
+        "url": "https://cash.app/${username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "cameo": {
+        "url": "https://www.cameo.com/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "linktree": {
+        "url": "https://linktr.ee/{username}",
+        "check": "text/html",
+        "positive": "This link doesn't exist",
+        "negative": "profile"
+    },
+    "carrd": {
+        "url": "https://{username}.carrd.co/",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "site"
+    },
+    "aboutme": {
+        "url": "https://about.me/{username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "profile"
+    },
+    "xbox": {
+        "url": "https://account.xbox.com/en-us/profile?gamertag={username}",
+        "check": "text/html",
+        "positive": "404",
+        "negative": "gamertag"
     }
 }
 
