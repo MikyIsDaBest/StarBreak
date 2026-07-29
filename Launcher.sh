@@ -6,6 +6,9 @@ cd "$SCRIPT_DIR" || exit 1
 
 # Ensure plugins directory exists
 mkdir -p plugins
+mkdir -p logs
+mkdir -p reports
+mkdir -p output
 
 # ==================== ASCII BANNERS ====================
 BANNER_NMAP="
@@ -38,39 +41,6 @@ BANNER_NSLOOKUP="
 │              DNS LOOKUP                           │
 └─────────────────────────────────────────────────────┘"
 
-BANNER_STARSTRIKE="
-┌─────────────────────────────────────────────────────┐
-│   ███████╗████████╗ █████╗ ██████╗ ███████╗████████╗
-│   ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
-│   ███████╗   ██║   ███████║██████╔╝███████╗   ██║   
-│   ╚════██║   ██║   ██╔══██║██╔══██╗╚════██║   ██║   
-│   ███████║   ██║   ██║  ██║██║  ██║███████║   ██║   
-│   ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   
-│              STRIKE ENGINE                         │
-└─────────────────────────────────────────────────────┘"
-
-BANNER_CUPP="
-┌─────────────────────────────────────────────────────┐
-│   ██████╗██╗   ██╗██████╗ ██████╗                  │
-│  ██╔════╝██║   ██║██╔══██╗██╔══██╗                │
-│  ██║     ██║   ██║██████╔╝██████╔╝                │
-│  ██║     ██║   ██║██╔═══╝ ██╔═══╝                 │
-│  ╚██████╗╚██████╔╝██║     ██║                     │
-│   ╚═════╝ ╚═════╝ ╚═╝     ╚═╝                     │
-│           PASSWORD PROFILER                        │
-└─────────────────────────────────────────────────────┘"
-
-BANNER_SHERLOCK="
-┌─────────────────────────────────────────────────────┐
-│   ███████╗██╗  ██╗███████╗██████╗ ██╗      ██████╗
-│   ██╔════╝██║  ██║██╔════╝██╔══██╗██║     ██╔═══██╗
-│   ███████╗███████║█████╗  ██████╔╝██║     ██║   ██║
-│   ╚════██║██╔══██║██╔══╝  ██╔══██╗██║     ██║   ██║
-│   ███████║██║  ██║███████╗██║  ██║███████╗╚██████╔╝
-│   ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ 
-│           OSINT LOOKUP                            │
-└─────────────────────────────────────────────────────┘"
-
 BANNER_TCPSCANNER="
 ┌─────────────────────────────────────────────────────┐
 │   ████████╗ ██████╗██████╗                         │
@@ -82,32 +52,26 @@ BANNER_TCPSCANNER="
 │           PORT SCANNER                            │
 └─────────────────────────────────────────────────────┘"
 
-BANNER_AIRCRACK="
+BANNER_SUBDOMAIN="
 ┌─────────────────────────────────────────────────────┐
-│   █████╗ ██╗██████╗  ██████╗██████╗  █████╗  ██████╗
-│  ██╔══██╗██║██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝
-│  ███████║██║██████╔╝██║     ██████╔╝███████║██║     
-│  ██╔══██║██║██╔══██╗██║     ██╔══██╗██╔══██║██║     
-│  ██║  ██║██║██║  ██║╚██████╗██║  ██║██║  ██║╚██████╗
-│  ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝
-│           WIRELESS SECURITY                        │
+│  ███████╗██╗   ██╗██████╗ ██████╗  ██████╗       │
+│  ██╔════╝██║   ██║██╔══██╗██╔══██╗██╔═══██╗      │
+│  ███████╗██║   ██║██████╔╝██║  ██║██║   ██║      │
+│  ╚════██║██║   ██║██╔══██╗██║  ██║██║   ██║      │
+│  ███████║╚██████╔╝██████╔╝██████╔╝╚██████╔╝      │
+│  ╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝  ╚═════╝       │
+│           SUBDOMAIN ENUMERATION                    │
 └─────────────────────────────────────────────────────┘"
 
-BANNER_SMSSPOOFER="
+BANNER_SHERLOCK="
 ┌─────────────────────────────────────────────────────┐
-│   ███████╗███╗   ███╗███████╗                      │
-│   ██╔════╝████╗ ████║██╔════╝                      │
-│   ███████╗██╔████╔██║███████╗                      │
-│   ╚════██║██║╚██╔╝██║╚════██║                      │
-│   ███████║██║ ╚═╝ ██║███████║                      │
-│   ╚══════╝╚═╝     ╚═╝╚══════╝                      │
-│   ███████╗██████╗  ██████╗  ██████╗ ███████╗██████╗
-│   ██╔════╝██╔══██╗██╔═══██╗██╔═══██╗██╔════╝██╔══██╗
-│   ███████╗██████╔╝██║   ██║██║   ██║█████╗  ██████╔╝
-│   ╚════██║██╔═══╝ ██║   ██║██║   ██║██╔══╝  ██╔══██╗
-│   ███████║██║     ╚██████╔╝╚██████╔╝███████╗██║  ██║
-│   ╚══════╝╚═╝      ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝
-│           FREE SMS SPOOFING ENGINE                  │
+│   ███████╗██╗  ██╗███████╗██████╗ ██╗      ██████╗
+│   ██╔════╝██║  ██║██╔════╝██╔══██╗██║     ██╔═══██╗
+│   ███████╗███████║█████╗  ██████╔╝██║     ██║   ██║
+│   ╚════██║██╔══██║██╔══╝  ██╔══██╗██║     ██║   ██║
+│   ███████║██║  ██║███████╗██║  ██║███████╗╚██████╔╝
+│   ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ 
+│           OSINT LOOKUP                            │
 └─────────────────────────────────────────────────────┘"
 
 BANNER_STARHUNT="
@@ -127,6 +91,39 @@ BANNER_STARHUNT="
 │           ADVANCED OSINT - 50+ PLATFORMS             │
 └─────────────────────────────────────────────────────┘"
 
+BANNER_BREACH="
+┌─────────────────────────────────────────────────────┐
+│  ██████╗ ██████╗ ███████╗ █████╗  ██████╗██╗  ██╗ │
+│  ██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔════╝██║  ██║ │
+│  ██████╔╝██████╔╝█████╗  ███████║██║     ███████║ │
+│  ██╔══██╗██╔══██╗██╔══╝  ██╔══██║██║     ██╔══██║ │
+│  ██████╔╝██║  ██║███████╗██║  ██║╚██████╗██║  ██║ │
+│  ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝ │
+│           BREACH CHECKER ENGINE                    │
+└─────────────────────────────────────────────────────┘"
+
+BANNER_EMAIL="
+┌─────────────────────────────────────────────────────┐
+│  ███████╗███╗   ███╗ █████╗ ██╗██╗               │
+│  ██╔════╝████╗ ████║██╔══██╗██║██║               │
+│  █████╗  ██╔████╔██║███████║██║██║               │
+│  ██╔══╝  ██║╚██╔╝██║██╔══██║██║██║               │
+│  ███████╗██║ ╚═╝ ██║██║  ██║██║███████╗          │
+│  ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝╚══════╝          │
+│           EMAIL HUNTER ENGINE                      │
+└─────────────────────────────────────────────────────┘"
+
+BANNER_STARSTRIKE="
+┌─────────────────────────────────────────────────────┐
+│   ███████╗████████╗ █████╗ ██████╗ ███████╗████████╗
+│   ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
+│   ███████╗   ██║   ███████║██████╔╝███████╗   ██║   │
+│   ╚════██║   ██║   ██╔══██║██╔══██╗╚════██║   ██║   │
+│   ███████║   ██║   ██║  ██║██║  ██║███████║   ██║   │
+│   ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   │
+│              STRIKE ENGINE                         │
+└─────────────────────────────────────────────────────┘"
+
 BANNER_METEOR="
 ┌─────────────────────────────────────────────────────┐
 │  ███╗   ███╗████████╗████████╗███████╗██████╗     │
@@ -143,6 +140,95 @@ BANNER_METEOR="
 │   ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝    │
 └─────────────────────────────────────────────────────┘"
 
+BANNER_EXPLOIT="
+┌─────────────────────────────────────────────────────┐
+│  ███████╗██╗  ██╗██████╗ ██╗      ██████╗ ██╗████████╗│
+│  ██╔════╝╚██╗██╔╝██╔══██╗██║     ██╔═══██╗██║╚══██╔══╝│
+│  █████╗   ╚███╔╝ ██████╔╝██║     ██║   ██║██║   ██║   │
+│  ██╔══╝   ██╔██╗ ██╔═══╝ ██║     ██║   ██║██║   ██║   │
+│  ███████╗██╔╝ ██╗██║     ███████╗╚██████╔╝██║   ██║   │
+│  ╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝ ╚═════╝ ╚═╝   ╚═╝   │
+│           EXPLOIT SUGGESTER                         │
+└─────────────────────────────────────────────────────┘"
+
+BANNER_AIRCRACK="
+┌─────────────────────────────────────────────────────┐
+│   █████╗ ██╗██████╗  ██████╗██████╗  █████╗  ██████╗
+│  ██╔══██╗██║██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝
+│  ███████║██║██████╔╝██║     ██████╔╝███████║██║     
+│  ██╔══██║██║██╔══██╗██║     ██╔══██╗██╔══██║██║     
+│  ██║  ██║██║██║  ██║╚██████╗██║  ██║██║  ██║╚██████╗
+│  ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝
+│           WIRELESS SECURITY                        │
+└─────────────────────────────────────────────────────┘"
+
+BANNER_SATELLITE="
+┌─────────────────────────────────────────────────────┐
+│  ███████╗ █████╗ ████████╗███████╗██╗     ██╗     │
+│  ██╔════╝██╔══██╗╚══██╔══╝██╔════╝██║     ██║     │
+│  ███████╗███████║   ██║   █████╗  ██║     ██║     │
+│  ╚════██║██╔══██║   ██║   ██╔══╝  ██║     ██║     │
+│  ███████║██║  ██║   ██║   ███████╗███████╗███████╗│
+│  ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚══════╝╚══════╝│
+│   ███████╗██████╗  █████╗ ██████╗  ██████╗        │
+│   ██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔═══██╗       │
+│   ███████╗██████╔╝███████║██████╔╝██║   ██║       │
+│   ╚════██║██╔══██╗██╔══██║██╔══██╗██║   ██║       │
+│   ███████║██║  ██║██║  ██║██║  ██║╚██████╔╝       │
+│   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝        │
+│           SATELLITE RECONNAISSANCE                 │
+└─────────────────────────────────────────────────────┘"
+
+BANNER_PROXY="
+┌─────────────────────────────────────────────────────┐
+│  ██████╗ ██████╗  ██████╗ ██╗  ██╗██╗   ██╗      │
+│  ██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝╚██╗ ██╔╝      │
+│  ██████╔╝██████╔╝██║   ██║ ╚███╔╝  ╚████╔╝       │
+│  ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗   ╚██╔╝        │
+│  ██║     ██║  ██║╚██████╔╝██╔╝ ██╗   ██║         │
+│  ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝         │
+│           PROXY/ANONYMITY ENGINE                   │
+└─────────────────────────────────────────────────────┘"
+
+BANNER_STEGANO="
+┌─────────────────────────────────────────────────────┐
+│  ███████╗████████╗███████╗ ██████╗  █████╗       │
+│  ██╔════╝╚══██╔══╝██╔════╝██╔════╝ ██╔══██╗      │
+│  ███████╗   ██║   █████╗  ██║  ███╗███████║      │
+│  ╚════██║   ██║   ██╔══╝  ██║   ██║██╔══██║      │
+│  ███████║   ██║   ███████╗╚██████╔╝██║  ██║      │
+│  ╚══════╝   ╚═╝   ╚══════╝ ╚═════╝ ╚═╝  ╚═╝      │
+│           STEGANOGRAPHY SUITE                      │
+└─────────────────────────────────────────────────────┘"
+
+BANNER_CUPP="
+┌─────────────────────────────────────────────────────┐
+│   ██████╗██╗   ██╗██████╗ ██████╗                  │
+│  ██╔════╝██║   ██║██╔══██╗██╔══██╗                │
+│  ██║     ██║   ██║██████╔╝██████╔╝                │
+│  ██║     ██║   ██║██╔═══╝ ██╔═══╝                 │
+│  ╚██████╗╚██████╔╝██║     ██║                     │
+│   ╚═════╝ ╚═════╝ ╚═╝     ╚═╝                     │
+│           PASSWORD PROFILER                        │
+└─────────────────────────────────────────────────────┘"
+
+BANNER_SMSSPOOFER="
+┌─────────────────────────────────────────────────────┐
+│   ███████╗███╗   ███╗███████╗                      │
+│   ██╔════╝████╗ ████║██╔════╝                      │
+│   ███████╗██╔████╔██║███████╗                      │
+│   ╚════██║██║╚██╔╝██║╚════██║                      │
+│   ███████║██║ ╚═╝ ██║███████║                      │
+│   ╚══════╝╚═╝     ╚═╝╚══════╝                      │
+│   ███████╗██████╗  ██████╗  ██████╗ ███████╗██████╗│
+│   ██╔════╝██╔══██╗██╔═══██╗██╔═══██╗██╔════╝██╔══██╗
+│   ███████╗██████╔╝██║   ██║██║   ██║█████╗  ██████╔╝
+│   ╚════██║██╔═══╝ ██║   ██║██║   ██║██╔══╝  ██╔══██╗
+│   ███████║██║     ╚██████╔╝╚██████╔╝███████╗██║  ██║
+│   ╚══════╝╚═╝      ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝
+│           FREE SMS SPOOFING ENGINE                  │
+└─────────────────────────────────────────────────────┘"
+
 # ==================== MENU ====================
 show_menu() {
     clear
@@ -157,46 +243,59 @@ show_menu() {
     echo "================================================================="
     echo "                     NETWORK AND SECURITY SUITE           "
     echo "================================================================="
-    echo "  [1] Launch Nmap (Port AND Network Discovery)"
-    echo "  [2] Launch Wireshark (Packet Capture)"
-    echo "  [3] Launch Nslookup (DNS Lookup Tool)"
-    echo "  [4] Launch StarStrike Plugin (Guided Inputs)"
-    echo "  [5] Launch StarStrike Plugin (Custom Raw Command)"
-    echo "  [6] Launch CUPP (Common User Passwords Profiler)"
-    echo "  [7] Launch Sherlock (OSINT Username Lookup)"
-    echo "  [8] Launch TCP Port Scanner Plugin"
-    echo "  [9] Launch Aircrack-ng (Wireless Security Suite)"
-    echo "  [10] Launch SMS Spoofer (Free SMS Spoofing)"
-    echo "  [11] Launch StarHunt (Advanced OSINT - 50+ platforms)"
-    echo "  [12] Launch M3T30R STR!K3 (Multi‑Protocol DoS)"
-    echo "  [13] Exit"
+    echo ""
+    echo "  ═══ NETWORK & SCANNING ═══"
+    echo "  [1]  Nmap - Port & Network Discovery"
+    echo "  [2]  Wireshark - Packet Capture"
+    echo "  [3]  Nslookup - DNS Lookup"
+    echo "  [4]  TCP Port Scanner"
+    echo "  [5]  Subdomain Enumerator"
+    echo ""
+    echo "  ═══ OSINT & RECON ═══"
+    echo "  [6]  Sherlock - OSINT Username Lookup"
+    echo "  [7]  StarHunt - Advanced OSINT (50+ Platforms)"
+    echo "  [8]  Breach Checker - Database Leak Search"
+    echo "  [9]  Email Hunter"
+    echo ""
+    echo "  ═══ EXPLOITATION & DOS ═══"
+    echo "  [10] StarStrike - Guided Attack Engine"
+    echo "  [11] StarStrike - Custom Raw Command"
+    echo "  [12] M3T30R STR!K3 - Multi-Protocol DoS"
+    echo "  [13] Exploit Suggester"
+    echo ""
+    echo "  ═══ WIRELESS & PHYSICAL ═══"
+    echo "  [14] Aircrack-ng - Wireless Security"
+    echo "  [15] Satellite Reconnaissance"
+    echo ""
+    echo "  ═══ ANONYMITY & STEALTH ═══"
+    echo "  [16] Proxy/Anonymity Engine"
+    echo "  [17] Steganography Suite"
+    echo ""
+    echo "  ═══ PASSWORD & CREDENTIALS ═══"
+    echo "  [18] CUPP - Password Profiler"
+    echo "  [19] SMS Spoofer - Free SMS Spoofing"
+    echo ""
+    echo "  [20] Exit"
     echo "================================================================="
 }
 
 # ==================== FUNCTIONS ====================
-
 run_nmap() {
     clear
     echo "$BANNER_NMAP"
     echo ""
     if ! command -v nmap &> /dev/null; then
-        echo "Error: Nmap is not installed on this system."
-        echo "Install it via your package manager (e.g., sudo apt install nmap)."
+        echo "Error: Nmap is not installed. Install with: sudo apt install nmap"
         read -rp "Press Enter to continue..."
         return
     fi
-
-    read -rp "Enter Target IP/Subnet (e.g. 192.168.1.1): " NMAP_TARGET
-    if [ -z "$NMAP_TARGET" ]; then return; fi
-
-    read -rp "Enter Scan Flags (default -F for fast scan): " NMAP_FLAGS
-    NMAP_FLAGS="${NMAP_FLAGS:--F}"
-
+    read -rp "Enter Target IP/Subnet: " TARGET
+    [ -z "$TARGET" ] && return
+    read -rp "Enter Scan Flags (default -F): " FLAGS
+    FLAGS="${FLAGS:--F}"
     echo ""
-    echo "Executing: nmap $NMAP_FLAGS $NMAP_TARGET"
-    echo "---------------------------------------------------"
-    nmap $NMAP_FLAGS "$NMAP_TARGET"
-    echo "---------------------------------------------------"
+    nmap $FLAGS "$TARGET"
+    echo ""
     read -rp "Press Enter to continue..."
 }
 
@@ -205,158 +304,22 @@ run_wireshark() {
     echo "$BANNER_WIRESHARK"
     echo ""
     if command -v wireshark &> /dev/null; then
-        echo "Launching Wireshark..."
         wireshark &
-        sleep 2
     else
-        echo "Error: Wireshark is not installed on this system."
-        echo "Install it via your package manager (e.g., sudo apt install wireshark)."
-        read -rp "Press Enter to continue..."
+        echo "Error: Wireshark not installed."
     fi
+    read -rp "Press Enter to continue..."
 }
 
 run_nslookup() {
     clear
     echo "$BANNER_NSLOOKUP"
     echo ""
-    read -rp "Enter Domain or IP Address to query: " NS_TARGET
-    if [ -z "$NS_TARGET" ]; then return; fi
-
+    read -rp "Enter Domain or IP: " TARGET
+    [ -z "$TARGET" ] && return
     echo ""
-    echo "Executing: nslookup $NS_TARGET"
-    echo "---------------------------------------------------"
-    nslookup "$NS_TARGET"
-    echo "---------------------------------------------------"
-    read -rp "Press Enter to continue..."
-}
-
-run_starstrike() {
-    clear
-    echo "$BANNER_STARSTRIKE"
+    nslookup "$TARGET"
     echo ""
-
-    read -rp "[1/4] Enter Victim Target IP (e.g. 192.168.0.1): " VICTIM
-    while [ -z "$VICTIM" ]; do
-        read -rp "[1/4] Target required: " VICTIM
-    done
-
-    read -rp "[2/4] Enter Number of Threads (default 50): " THREADS
-    THREADS="${THREADS:-50}"
-
-    read -rp "[3/4] Enter Payload Size in bytes (default 65455): " PAYLOAD
-    PAYLOAD="${PAYLOAD:-65455}"
-
-    read -rp "[4/4] Enter Type (e.g. tcp, udp, icmp. http): " TYPE
-    TYPE="${TYPE:-tcp}"
-
-    clear
-    echo "$BANNER_STARSTRIKE"
-    echo ""
-    echo "Executing command:"
-    echo "python3 plugins/starstrike.py --threads${THREADS} --payloadsize${PAYLOAD} --type${TYPE} --victim${VICTIM}"
-    echo "---------------------------------------------------"
-    echo ""
-
-    if [ -f "plugins/starstrike.py" ]; then
-        python3 plugins/starstrike.py "--threads${THREADS}" "--payloadsize${PAYLOAD}" "--type${TYPE}" "--victim${VICTIM}"
-    elif [ -f "plugins/starbreak.py" ]; then
-        python3 plugins/starbreak.py "--threads${THREADS}" "--payloadsize${PAYLOAD}" "--type${TYPE}" "--victim${VICTIM}"
-    else
-        echo "Error: Could not find starstrike.py in plugins/ folder."
-    fi
-
-    echo ""
-    echo "---------------------------------------------------"
-    read -rp "Press Enter to continue..."
-}
-
-run_custom_raw() {
-    clear
-    echo "$BANNER_STARSTRIKE"
-    echo ""
-    echo "Type the full argument string to pass directly to starstrike.py"
-    echo "Example: --threads50 --payloadsize65455 --typetcp --victim192.168.0.1 --noprint(doesn't print the output) --unlockport(attacks all ports)"
-    echo "---------------------------------------------------"
-    read -rp "Enter flags > " RAW_ARGS
-
-    echo ""
-    echo "Executing: python3 plugins/starstrike.py $RAW_ARGS"
-    echo "---------------------------------------------------"
-    echo ""
-
-    if [ -f "plugins/starstrike.py" ]; then
-        python3 plugins/starstrike.py $RAW_ARGS
-    else
-        echo "Error: Could not find plugins/starstrike.py"
-    fi
-
-    echo ""
-    echo "---------------------------------------------------"
-    read -rp "Press Enter to continue..."
-}
-
-run_cupp() {
-    clear
-    echo "$BANNER_CUPP"
-    echo ""
-
-    if [ -f "plugins/cupp/cupp.py" ]; then
-        python3 plugins/cupp/cupp.py -i
-    elif [ -f "plugins/cupp.py" ]; then
-        python3 plugins/cupp.py -i
-    elif command -v cupp &> /dev/null; then
-        cupp -i
-    else
-        echo "CUPP not detected in plugins/ directory."
-        read -rp "Would you like to clone CUPP into plugins/ now? (y/n): " INSTALL_CUPP
-        if [[ "$INSTALL_CUPP" =~ ^[Yy]$ ]]; then
-            git clone https://github.com/Mebus/cupp.git plugins/cupp
-            if [ -f "plugins/cupp/cupp.py" ]; then
-                echo "CUPP downloaded successfully! Starting interactive setup..."
-                python3 plugins/cupp/cupp.py -i
-            fi
-        fi
-    fi
-
-    echo "---------------------------------------------------"
-    read -rp "Press Enter to continue..."
-}
-
-run_sherlock() {
-    clear
-    echo "$BANNER_SHERLOCK"
-    echo ""
-
-    read -rp "Enter Username to search (e.g. johndoe): " TARGET_USER
-    if [ -z "$TARGET_USER" ]; then return; fi
-
-    echo ""
-    echo "Searching for target: $TARGET_USER"
-    echo "---------------------------------------------------"
-
-    if command -v sherlock &> /dev/null; then
-        sherlock "$TARGET_USER"
-    elif [ -f "plugins/sherlock/sherlock/sherlock.py" ]; then
-        python3 plugins/sherlock/sherlock/sherlock.py "$TARGET_USER"
-    elif [ -f "plugins/sherlock/sherlock.py" ]; then
-        python3 plugins/sherlock/sherlock.py "$TARGET_USER"
-    else
-        echo "Sherlock is not installed globally or in plugins/ directory."
-        read -rp "Would you like to clone Sherlock into plugins/ now? (y/n): " INSTALL_SHERLOCK
-        if [[ "$INSTALL_SHERLOCK" =~ ^[Yy]$ ]]; then
-            git clone https://github.com/sherlock-project/sherlock.git plugins/sherlock
-            if [ -f "plugins/sherlock/requirements.txt" ]; then
-                echo "Installing Python dependencies for Sherlock..."
-                python3 -m pip install -r plugins/sherlock/requirements.txt
-            fi
-            if [ -f "plugins/sherlock/sherlock/sherlock.py" ]; then
-                echo "Sherlock downloaded! Executing search..."
-                python3 plugins/sherlock/sherlock/sherlock.py "$TARGET_USER"
-            fi
-        fi
-    fi
-
-    echo "---------------------------------------------------"
     read -rp "Press Enter to continue..."
 }
 
@@ -364,227 +327,14 @@ run_tcp_scanner() {
     clear
     echo "$BANNER_TCPSCANNER"
     echo ""
-
-    read -rp "Enter Target IP / Hostname: " SCAN_TARGET
-    if [ -z "$SCAN_TARGET" ]; then return; fi
-
-    read -rp "Enter Start Port (default 1): " START_PORT
-    START_PORT="${START_PORT:-1}"
-
-    read -rp "Enter End Port (default 1024): " END_PORT
-    END_PORT="${END_PORT:-1024}"
-
+    read -rp "Enter Target IP/Hostname: " TARGET
+    [ -z "$TARGET" ] && return
+    read -rp "Enter Start Port (default 1): " START
+    START="${START:-1}"
+    read -rp "Enter End Port (default 1024): " END
+    END="${END:-1024}"
     echo ""
-    echo "---------------------------------------------------"
-
     if [ -f "plugins/tcp_scanner.py" ]; then
-        python3 plugins/tcp_scanner.py --target "$SCAN_TARGET" --start_port "$START_PORT" --end_port "$END_PORT"
+        python3 plugins/tcp_scanner.py --target "$TARGET" --start "$START" --end "$END"
     else
-        echo "Error: Could not find plugins/tcp_scanner.py"
-    fi
-
-    echo "---------------------------------------------------"
-    read -rp "Press Enter to continue..."
-}
-
-run_aircrack() {
-    clear
-    echo "$BANNER_AIRCRACK"
-    echo ""
-
-    if ! command -v aircrack-ng &> /dev/null; then
-        echo "Error: aircrack-ng is not installed on this system."
-        echo "Install it via your package manager (e.g., sudo apt install aircrack-ng)."
-        read -rp "Press Enter to continue..."
-        return
-    fi
-
-    read -rp "Enter target .cap / .pcap capture file path: " CAP_FILE
-    if [ -z "$CAP_FILE" ]; then return; fi
-
-    read -rp "Enter wordlist file path (optional, press Enter to skip): " WORDLIST
-
-    echo ""
-    echo "Executing Aircrack-ng..."
-    echo "---------------------------------------------------"
-    if [ -n "$WORDLIST" ]; then
-        aircrack-ng -w "$WORDLIST" "$CAP_FILE"
-    else
-        aircrack-ng "$CAP_FILE"
-    fi
-
-    echo "---------------------------------------------------"
-    read -rp "Press Enter to continue..."
-}
-
-run_sms_spoofer() {
-    clear
-    echo "$BANNER_SMSSPOOFER"
-    echo ""
-
-    read -rp "Enter Target Phone Number (e.g., +1234567890): " SMS_TARGET
-    if [ -z "$SMS_TARGET" ]; then return; fi
-
-    read -rp "Enter Spoofed Sender ID (e.g., +19998887777): " SMS_SPOOF
-    if [ -z "$SMS_SPOOF" ]; then 
-        SMS_SPOOF="+00000000000"
-    fi
-
-    read -rp "Enter Message Content: " SMS_MSG
-    if [ -z "$SMS_MSG" ]; then
-        SMS_MSG="Hello from CATShadow Spoofer!"
-    fi
-
-    read -rp "Enter Number of Messages (default 10): " SMS_COUNT
-    SMS_COUNT="${SMS_COUNT:-10}"
-
-    read -rp "Enter Threads (default 5): " SMS_THREADS
-    SMS_THREADS="${SMS_THREADS:-5}"
-
-    clear
-    echo "$BANNER_SMSSPOOFER"
-    echo ""
-    echo "Target:  $SMS_TARGET"
-    echo "Spoof:   $SMS_SPOOF"
-    echo "Message: ${SMS_MSG:0:50}${SMS_MSG:50:+"..."}"
-    echo "Count:   $SMS_COUNT"
-    echo "Threads: $SMS_THREADS"
-    echo "---------------------------------------------------"
-    echo ""
-
-    if [ ! -f "plugins/sms_spoofer.py" ]; then
-        echo "Error: plugins/sms_spoofer.py not found!"
-        echo "Please ensure the SMS spoofer script is in the plugins/ directory."
-        read -rp "Press Enter to continue..."
-        return
-    fi
-
-    python3 plugins/sms_spoofer.py \
-        --target "$SMS_TARGET" \
-        --spoof "$SMS_SPOOF" \
-        --msg "$SMS_MSG" \
-        --count "$SMS_COUNT" \
-        --threads "$SMS_THREADS"
-
-    echo ""
-    echo "---------------------------------------------------"
-    read -rp "Press Enter to continue..."
-}
-
-run_starhunt() {
-    clear
-    echo "$BANNER_STARHUNT"
-    echo ""
-
-    read -rp "Enter Username to search: " TARGET_USER
-    if [ -z "$TARGET_USER" ]; then return; fi
-
-    read -rp "Enter Threads (default 20): " THREADS
-    THREADS="${THREADS:-20}"
-
-    read -rp "Enter Timeout (default 10s): " TIMEOUT
-    TIMEOUT="${TIMEOUT:-10}"
-
-    clear
-    echo "$BANNER_STARHUNT"
-    echo ""
-    echo "Username: $TARGET_USER"
-    echo "Threads:  $THREADS"
-    echo "Timeout:  $TIMEOUT"
-    echo "---------------------------------------------------"
-    echo ""
-
-    if [ ! -f "plugins/starhunt.py" ]; then
-        echo "Error: plugins/starhunt.py not found!"
-        echo "Please ensure the StarHunt script is in the plugins/ directory."
-        read -rp "Press Enter to continue..."
-        return
-    fi
-
-    python3 plugins/starhunt.py "$TARGET_USER" --threads "$THREADS" --timeout "$TIMEOUT"
-
-    echo ""
-    echo "---------------------------------------------------"
-    read -rp "Press Enter to continue..."
-}
-
-run_meteor_strike() {
-    clear
-    echo "$BANNER_METEOR"
-    echo ""
-    echo "  M3T30R STR!K3 – Unleash the digital storm"
-    echo ""
-
-    read -rp "Enter Target IP or Domain: " TARGET
-    if [ -z "$TARGET" ]; then return; fi
-
-    read -rp "Enter Target Port (default 80): " PORT
-    PORT="${PORT:-80}"
-
-    read -rp "Enter Protocol (tcp/udp/icmp/http, default tcp): " PROTO
-    PROTO="${PROTO:-tcp}"
-
-    read -rp "Enter Threads (default 50): " THREADS
-    THREADS="${THREADS:-50}"
-
-    read -rp "Enter Duration in seconds (default 30): " DURATION
-    DURATION="${DURATION:-30}"
-
-    read -rp "Enter Payload Size in bytes (default 1024): " PAYLOAD
-    PAYLOAD="${PAYLOAD:-1024}"
-
-    read -rp "Spoof Source IP? (optional, press Enter to skip): " SPOOF
-
-    clear
-    echo "$BANNER_METEOR"
-    echo ""
-    echo "Target:    $TARGET"
-    echo "Port:      $PORT"
-    echo "Protocol:  $PROTO"
-    echo "Threads:   $THREADS"
-    echo "Duration:  $DURATION s"
-    echo "Payload:   $PAYLOAD B"
-    echo "Spoof:     ${SPOOF:-None}"
-    echo "---------------------------------------------------"
-    echo ""
-
-    if [ ! -f "plugins/meteor_strike.py" ]; then
-        echo "Error: plugins/meteor_strike.py not found!"
-        read -rp "Press Enter to continue..."
-        return
-    fi
-
-    python3 plugins/meteor_strike.py \
-        --target "$TARGET" \
-        --port "$PORT" \
-        --protocol "$PROTO" \
-        --threads "$THREADS" \
-        --duration "$DURATION" \
-        --payload "$PAYLOAD" \
-        ${SPOOF:+--spoof "$SPOOF"}
-
-    echo ""
-    read -rp "Press Enter to continue..."
-}
-
-# ==================== MAIN LOOP ====================
-while true; do
-    show_menu
-    read -rp "Select a tool [1-13]: " CHOICE
-    case "$CHOICE" in
-        1) run_nmap ;;
-        2) run_wireshark ;;
-        3) run_nslookup ;;
-        4) run_starstrike ;;
-        5) run_custom_raw ;;
-        6) run_cupp ;;
-        7) run_sherlock ;;
-        8) run_tcp_scanner ;;
-        9) run_aircrack ;;
-        10) run_sms_spoofer ;;
-        11) run_starhunt ;;
-        12) run_meteor_strike ;;
-        13) echo "Goodbye!"; exit 0 ;;
-        *) echo "Invalid selection, please try again."; sleep 1 ;;
-    esac
-done
+        echo "
