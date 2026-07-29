@@ -230,52 +230,51 @@ BANNER_SMSSPOOFER="
 show_menu() {
     clear
     echo "================================================================="
-    echo "   ____ _____  _    ____    ____  ____  _____    _    _  __ "
-    echo "  / ___|_   _|/ \  |  _ \  | __ )|  _ \| ____|  / \  | |/ / "
-    echo "  \___ \ | | / _ \ | |_) | |  _ \| |_) |  _|   / _ \ | ' /  "
-    echo "   ___) || |/ ___ \|  _ <  | |_) |  _ <| |___ / ___ \| . \  "
-    echo "  |____/ |_/_/   \_\_| \_\ |____/|_| \_\_____/_/   \_\_|\_\ "
+    echo "    ____ _____  _    ____    ____  ____  _____    _    _  __ "
+    echo "   / ___|_   _|/ \  |  _ \  | __ )|  _ \| ____|  / \  | |/ / "
+    echo "   \___ \ | | / _ \ | |_) | |  _ \| |_) |  _|   / _ \ | ' /  "
+    echo "    ___) || |/ ___ \|  _ <  | |_) |  _ <| |___ / ___ \| . \  "
+    echo "   |____/ |_/_/   \_\_| \_\ |____/|_| \_\_____/_/   \_\_|\_\ "
     echo ""
-    echo "                     Made by N E T W O R K 0             "
+    echo "                     Made by N E T W O R K 0              "
     echo "================================================================="
     echo "                     NETWORK AND SECURITY SUITE           "
     echo "================================================================="
     echo ""
-    echo "  ═══ NETWORK & SCANNING ═══"
-    echo "  [1]  Nmap - Port & Network Discovery"
-    echo "  [2]  Wireshark - Packet Capture"
-    echo "  [3]  Nslookup - DNS Lookup"
-    echo "  [4]  TCP Port Scanner"
-    echo "  [5]  Subdomain Enumerator"
+    echo "   ═══ NETWORK & SCANNING ═══"
+    echo "   [1]  Nmap - Port & Network Discovery"
+    echo "   [2]  Wireshark - Packet Capture"
+    echo "   [3]  Nslookup - DNS Lookup"
+    echo "   [4]  TCP Port Scanner"
+    echo "   [5]  Subdomain Enumerator"
     echo ""
-    echo "  ═══ OSINT & RECON ═══"
-    echo "  [6]  Sherlock - OSINT Username Lookup"
-    echo "  [7]  StarHunt - Advanced OSINT (50+ Platforms)"
-    echo "  [8]  Breach Checker - Database Leak Search"
-    echo "  [9]  Email Hunter"
+    echo "   ═══ OSINT & RECON ═══"
+    echo "   [6]  Sherlock - OSINT Username Lookup"
+    echo "   [7]  StarHunt - Advanced OSINT (50+ Platforms)"
+    echo "   [8]  Breach Checker - Database Leak Search"
+    echo "   [9]  Email Hunter"
     echo ""
-    echo "  ═══ EXPLOITATION & DOS ═══"
-    echo "  [10] StarStrike - Guided Attack Engine"
-    echo "  [11] StarStrike - Custom Raw Command"
-    echo "  [12] M3T30R STR!K3 - Multi-Protocol DoS"
-    echo "  [13] Exploit Suggester"
+    echo "   ═══ EXPLOITATION & DOS ═══"
+    echo "   [10] StarStrike - Guided Attack Engine"
+    echo "   [11] StarStrike - Custom Raw Command"
+    echo "   [12] M3T30R STR!K3 - Multi-Protocol DoS"
+    echo "   [13] Exploit Suggester"
     echo ""
-    echo "  ═══ WIRELESS & PHYSICAL ═══"
-    echo "  [14] Aircrack-ng - Wireless Security"
-    echo "  [15] Satellite Reconnaissance"
+    echo "   ═══ WIRELESS & PHYSICAL ═══"
+    echo "   [14] Aircrack-ng - Wireless Security"
+    echo "   [15] Satellite Reconnaissance"
     echo ""
-    echo "  ═══ ANONYMITY & STEALTH ═══"
-    echo "  [16] Proxy/Anonymity Engine"
-    echo "  [17] Steganography Suite"
+    echo "   ═══ ANONYMITY & STEALTH ═══"
+    echo "   [16] Proxy/Anonymity Engine"
+    echo "   [17] Steganography Suite"
     echo ""
-    echo "  ═══ PASSWORD & CREDENTIALS ═══"
-    echo "  [18] CUPP - Password Profiler"
-    echo "  [19] SMS Spoofer - Free SMS Spoofing"
+    echo "   ═══ PASSWORD & CREDENTIALS ═══"
+    echo "   [18] CUPP - Password Profiler"
+    echo "   [19] SMS Spoofer - Free SMS Spoofing"
     echo ""
-    echo "  [20] Exit"
+    echo "   [20] Exit"
     echo "================================================================="
 }
-
 # ==================== FUNCTIONS ====================
 run_nmap() {
     clear
@@ -348,5 +347,27 @@ run_subdomain_enum() {
     read -rp "Enter Threads (default 20): " THREADS
     THREADS="${THREADS:-20}"
     echo ""
-    if [ -f "plugins/subdomain_enum.py" ];
+    if [ -f "plugins/subdomain_enum.py" ]; then
+        python3 plugins/subdomain_enum.py --domain "$DOMAIN" --threads "$THREADS"
+    else
+        echo "Error: plugins/subdomain_enum.py not found!"
+    fi
+    read -rp "Press Enter to continue..."
+}
+
+run_sherlock() {
+    clear
+    echo "$BANNER_SHERLOCK"
+    echo ""
+    read -rp "Enter Username: " USERNAME
+    [ -z "$USERNAME" ] && return
+    echo ""
+    if command -v sherlock &> /dev/null; then
+        sherlock "$USERNAME"
+    elif [ -f "plugins/sherlock/sherlock.py" ]; then
+        python3 plugins/sherlock/sherlock.py "$USERNAME"
+    else
+        echo "Error: Sherlock not found globally or in plugins/sherlock/"
+    fi
+    read -rp "Press Enter to continue..."
 }
