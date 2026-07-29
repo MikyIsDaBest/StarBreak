@@ -349,3 +349,4 @@ run_subdomain_enum() {
     THREADS="${THREADS:-20}"
     echo ""
     if [ -f "plugins/subdomain_enum.py" ];
+}
