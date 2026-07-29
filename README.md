@@ -10,6 +10,8 @@ MALICIOUS USE OF THIS TOOL IS ILLEGAL AND CAN LEAD TO JAIL TIME, READ #README FO
 CURENTLY WE SUPPORT WINDOWS 10/11 AND LINUX 
 MACOS SUPPORT MAY COME LATER ON. TERMUX SUPPORT ISN'T PLANNED YET
 ===========================================
+note: termux may work but some tools require root or a linux installation
+
 For Linux, use "Launcher.sh" 
 
 You will need to most likely manually put plugins "Star Strike" and "TCP Scanner" to the plugins folder.
