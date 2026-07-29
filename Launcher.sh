@@ -133,7 +133,7 @@ BANNER_METEOR="
 │    ██╔════╝╚══██╔══╝██╔══██╗██║██║ ██╔╝██╔════╝     │
 │    ███████╗   ██║   ██████╔╝██║█████╔╝ ███████╗     │
 │    ╚════██║   ██║   ██╔══██╗██║██╔═██╗ ╚════██║     │
-│    ███████║   ██║   ██║  ██║██║██║  ██╗███████║     │
+│    ███████║   ██║   ██║  ██║██║██║  ██╗███████╗     │
 │    ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝     │
 └─────────────────────────────────────────────────────┘"
 
@@ -373,6 +373,121 @@ run_sherlock() {
     read -rp "Press Enter to continue..."
 }
 
+run_starhunt() {
+    clear
+    echo "$BANNER_STARHUNT"
+    echo ""
+    echo "[!] UI Module Only"
+    read -rp "Press Enter to continue..."
+}
+
+run_breach() {
+    clear
+    echo "$BANNER_BREACH"
+    echo ""
+    echo "[!] UI Module Only"
+    read -rp "Press Enter to continue..."
+}
+
+run_email() {
+    clear
+    echo "$BANNER_EMAIL"
+    echo ""
+    echo "[!] UI Module Only"
+    read -rp "Press Enter to continue..."
+}
+
+run_starstrike() {
+    clear
+    echo "$BANNER_STARSTRIKE"
+    echo ""
+    echo "[!] UI Module Only"
+    read -rp "Press Enter to continue..."
+}
+
+run_custom_raw() {
+    clear
+    echo "$BANNER_STARSTRIKE"
+    echo ""
+    echo "[!] UI Module Only"
+    read -rp "Press Enter to continue..."
+}
+
+run_meteor() {
+    clear
+    echo "$BANNER_METEOR"
+    echo ""
+    echo "[!] UI Module Only"
+    read -rp "Press Enter to continue..."
+}
+
+run_exploit() {
+    clear
+    echo "$BANNER_EXPLOIT"
+    echo ""
+    echo "[!] UI Module Only"
+    read -rp "Press Enter to continue..."
+}
+
+run_aircrack() {
+    clear
+    echo "$BANNER_AIRCRACK"
+    echo ""
+    if ! command -v aircrack-ng &> /dev/null; then
+        echo "Error: aircrack-ng is not installed."
+        read -rp "Press Enter to continue..."
+        return
+    fi
+    read -rp "Enter Target Cap File: " CAPFILE
+    [ -z "$CAPFILE" ] && return
+    aircrack-ng "$CAPFILE"
+    read -rp "Press Enter to continue..."
+}
+
+run_satellite() {
+    clear
+    echo "$BANNER_SATELLITE"
+    echo ""
+    echo "[!] UI Module Only"
+    read -rp "Press Enter to continue..."
+}
+
+run_proxy() {
+    clear
+    echo "$BANNER_PROXY"
+    echo ""
+    echo "[!] UI Module Only"
+    read -rp "Press Enter to continue..."
+}
+
+run_stegano() {
+    clear
+    echo "$BANNER_STEGANO"
+    echo ""
+    echo "[!] UI Module Only"
+    read -rp "Press Enter to continue..."
+}
+
+run_cupp() {
+    clear
+    echo "$BANNER_CUPP"
+    echo ""
+    if [ -f "plugins/cupp/cupp.py" ]; then
+        python3 plugins/cupp/cupp.py -i
+    else
+        echo "Error: CUPP not found in plugins/cupp/cupp.py"
+    fi
+    read -rp "Press Enter to continue..."
+}
+
+run_sms_spoofer() {
+    clear
+    echo "$BANNER_SMSSPOOFER"
+    echo ""
+    echo "[!] UI Module Only"
+    read -rp "Press Enter to continue..."
+}
+
 # ==================== MAIN EXECUTION LOOP ====================
 while true; do
     show_menu
@@ -384,11 +499,19 @@ while true; do
         4)  run_tcp_scanner ;;
         5)  run_subdomain_enum ;;
         6)  run_sherlock ;;
-        7|8|9|10|11|12|13|14|15|16|17|18|19)
-            clear
-            echo "Module Option $CHOICE selected."
-            read -rp "Press Enter to return to menu..."
-            ;;
+        7)  run_starhunt ;;
+        8)  run_breach ;;
+        9)  run_email ;;
+        10) run_starstrike ;;
+        11) run_custom_raw ;;
+        12) run_meteor ;;
+        13) run_exploit ;;
+        14) run_aircrack ;;
+        15) run_satellite ;;
+        16) run_proxy ;;
+        17) run_stegano ;;
+        18) run_cupp ;;
+        19) run_sms_spoofer ;;
         20) echo "Exiting..."; exit 0 ;;
         *)  echo "Invalid option!"; sleep 1 ;;
     esac
