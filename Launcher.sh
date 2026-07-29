@@ -275,6 +275,7 @@ show_menu() {
     echo "   [20] Exit"
     echo "================================================================="
 }
+
 # ==================== FUNCTIONS ====================
 run_nmap() {
     clear
@@ -371,3 +372,24 @@ run_sherlock() {
     fi
     read -rp "Press Enter to continue..."
 }
+
+# ==================== MAIN EXECUTION LOOP ====================
+while true; do
+    show_menu
+    read -rp "Select an option [1-20]: " CHOICE
+    case "$CHOICE" in
+        1)  run_nmap ;;
+        2)  run_wireshark ;;
+        3)  run_nslookup ;;
+        4)  run_tcp_scanner ;;
+        5)  run_subdomain_enum ;;
+        6)  run_sherlock ;;
+        7|8|9|10|11|12|13|14|15|16|17|18|19)
+            clear
+            echo "Module Option $CHOICE selected."
+            read -rp "Press Enter to return to menu..."
+            ;;
+        20) echo "Exiting..."; exit 0 ;;
+        *)  echo "Invalid option!"; sleep 1 ;;
+    esac
+done
