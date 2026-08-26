@@ -331,13 +331,13 @@ install_steel() {
 run_guided_steel() {
     echo -e "Steel (guided)"
     if [ -f "plugins/steel" ]; then
-        read -rp "Enter attack type [tcp, udp, icmp]: " _TYPE
+        #read -rp "Enter attack type [tcp, udp, icmp]: " _TYPE commented out because theres a bug
         read -rp "Enter target ip (x.x.x.x): " _IP
         read -rp "Enter target port: " _PORT
         read -rp "Enter number of threads (i recommend 10): " _THREADS
         read -rp "Enter any additional arguments (Leave empty to skip): " _ADD
         echo -e "Starting Steel... (It may not work, it is in development and prone to bugs. Report any bugs you encounter at the repo Vitalij3703/steel)"
-        plugins/steel --type "{_TYPE}" --targetip "{_IP}" --port "{_PORT}" --threads "{_THREADS}" "{_ADD}"
+        plugins/steel --targetip "{_IP}" --port "{_PORT}" --threads "{_THREADS}" "{_ADD}"
         return
     else
         echo -e "Steel not found. Install? [y/n]"
