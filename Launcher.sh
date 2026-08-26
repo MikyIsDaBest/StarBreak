@@ -330,7 +330,7 @@ install_steel() {
 #run steel with guided inputs
 run_guided_steel() {
     echo -e "Steel (guided)"
-    if [-f "plugins/steel"] then
+    if [ -f "plugins/steel" ]; then
         read -rp "Enter attack type [tcp, udp, icmp]: " _TYPE
         read -rp "Enter target ip (x.x.x.x): " _IP
         read -rp "Enter target port: " _PORT
@@ -350,7 +350,7 @@ run_guided_steel() {
 
 run_raw_steel(){
     echo -e "Steel (raw)"
-    if [-f "plugins/steel"] then
+    if [ -f "plugins/steel" ]; then
         read -rp "Enter raw arguments: " _ADD
         echo -e "Starting Steel... (It may not work, it is in development and prone to bugs. Report any bugs you encounter at the repo Vitalij3703/steel)"
         plugins/steel "{_ADD}"
