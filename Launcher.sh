@@ -321,7 +321,7 @@ install_steel() {
         gcc steel/steel.c -o plugins/steel
         echo -e "Installation done."
         chmod +x plugins/steel
-        return
+        rm -rf steel/
     else
         echo -e "GCC and Git are required, but not installed. Abort"
     fi
