@@ -310,20 +310,20 @@ run_custom_raw() {
     read -rp "Press Enter to continue..."
 }
 
-#get the steel repo and compile steel
+#get the steel src and compile steel
 install_steel() {
     clear
     echo -e "{WHITE}Installing Steel..."
     if command -v git &> /dev/null && command -v gcc &> /dev/null; then
-        echo -e "Cloning repo..."
-        git clone https://github.com/Vitalij3703/steel
+        echo -e "Getting source..."
+        curl -L https://raw.githubusercontent.com/Vitalij3703/steel/refs/heads/main/steel.c -o "steel.c"
         echo -e "Compiling..."
-        gcc -pthread steel/steel.c -o plugins/steel
+        gcc -pthread steel.c -o plugins/steel
         echo -e "Installation done."
         chmod +x plugins/steel
         rm -rf steel/
     else
-        echo -e "GCC and Git are required, but not installed. Abort"
+        echo -e "GCC and curl are required, but not installed. Abort"
     fi
 }
 
