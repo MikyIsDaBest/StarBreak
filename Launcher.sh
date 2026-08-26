@@ -195,7 +195,10 @@ menu() {
     echo -e "  ${WHITE}[${GREEN}11${WHITE}]${MAGENTA} StarHunt - Advanced OSINT (50+ platforms)${NC}"
     echo -e "  ${WHITE}[${GREEN}12${WHITE}]${RED} M3T30R STR!K3 - Multi‑Protocol DoS${NC}"
     echo -e "  ${WHITE}[${GREEN}13${WHITE}]${CYAN} Satellite Reconnaissance${NC}"
-    echo -e "  ${WHITE}[${GREEN}14${WHITE}] Exit${NC}"
+    echo -e "  ${WHITE}[${GREEN}14${WHITE}]${YELLOW} Steel - DoS (Install)${NC}"
+    echo -e "  ${WHITE}[${GREEN}15${WHITE}]${YELLOW} Steel - DoS (Guided)${NC}"
+    echo -e "  ${WHITE}[${GREEN}16${WHITE}]${YELLOW} Steel - DoS (Raw)${NC}"
+    echo -e "  ${WHITE}[${GREEN}17${WHITE}] Exit${NC}"
     echo -e "${CYAN}=================================================================${NC}"
 }
 
@@ -305,6 +308,60 @@ run_custom_raw() {
     echo ""
     echo "---------------------------------------------------"
     read -rp "Press Enter to continue..."
+}
+
+#get the steel repo and compile steel
+install_steel() {
+    clear
+    echo -e "{WHITE}Installing Steel..."
+    if command -v git &> /dev/null && command -v gcc &> /dev/null; then
+        echo -e "Cloning repo..."
+        git clone https://github.com/Vitalij3703/steel
+        echo -e "Compiling..."
+        gcc steel/steel.c -o plugins/steel
+        echo -e "Installation done."
+        chmod +x plugins/steel
+        return
+    else
+        echo -e "GCC and Git are required, but not installed. Abort"
+    fi
+}
+
+#run steel with guided inputs
+run_guided_steel() {
+    echo -e "Steel (guided)"
+    if [-f "plugins/steel"] then
+        read -rp "Enter attack type [tcp, udp, icmp]: " _TYPE
+        read -rp "Enter target ip (x.x.x.x): " _IP
+        read -rp "Enter target port: " _PORT
+        read -rp "Enter number of threads (i recommend 10): " _THREADS
+        read -rp "Enter any additional arguments (Leave empty to skip): " _ADD
+        echo -e "Starting Steel... (It may not work, it is in development and prone to bugs. Report any bugs you encounter at the repo Vitalij3703/steel)"
+        plugins/steel --type "{_TYPE}" --targetip "{_IP}" --port "{_PORT}" --threads "{_THREADS}" "{_ADD}"
+        return
+    else
+        echo -e "Steel not found. Install? [y/n]"
+        read -rp "> " ans
+        if [[ "$ans" =~ ^[Yy]$ ]]; then
+            install_steel
+        fi
+    fi
+}
+
+run_raw_steel(){
+    echo -e "Steel (raw)"
+    if [-f "plugins/steel"] then
+        read -rp "Enter raw arguments: " _ADD
+        echo -e "Starting Steel... (It may not work, it is in development and prone to bugs. Report any bugs you encounter at the repo Vitalij3703/steel)"
+        plugins/steel "{_ADD}"
+        return
+    else
+        echo -e "Steel not found. Install? [y/n]"
+        read -rp "> " ans
+        if [[ "$ans" =~ ^[Yy]$ ]]; then
+            install_steel
+        fi
+    fi
 }
 
 run_cupp() {
@@ -567,7 +624,7 @@ run_satellite() {
 # ==================== MAIN LOOP ====================
 while true; do
     menu
-    read -rp "Select a tool [1-14]: " CHOICE
+    read -rp "Select a tool [1-17]: " CHOICE
     case "$CHOICE" in
         1) run_nmap ;;
         2) run_wireshark ;;
@@ -582,7 +639,10 @@ while true; do
         11) run_starhunt ;;
         12) run_meteor ;;
         13) run_satellite ;;
-        14) echo -e "${GREEN}Goodbye!${NC}"; exit 0 ;;
+        14) install_steel ;;
+        15) run_guided_steel ;;
+        16) run_raw_steel ;;
+        17) echo -e "${GREEN}Goodbye!${NC}"; exit 0 ;;
         *) echo -e "${RED}Invalid selection.${NC}"; sleep 1 ;;
     esac
 done
