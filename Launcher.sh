@@ -337,7 +337,7 @@ run_guided_steel() {
         read -rp "Enter number of threads (i recommend 10): " _THREADS
         read -rp "Enter any additional arguments (Leave empty to skip): " _ADD
         echo -e "Starting Steel... (It may not work, it is in development and prone to bugs. Report any bugs you encounter at the repo Vitalij3703/steel)"
-        plugins/steel --targetip "{_IP}" --port "{_PORT}" --threads "{_THREADS}" "{_ADD}"
+        sudo plugins/steel --targetip "{_IP}" --port "{_PORT}" --threads "{_THREADS}" "{_ADD}"
         return
     else
         echo -e "Steel not found. Install? [y/n]"
@@ -353,7 +353,7 @@ run_raw_steel(){
     if [ -f "plugins/steel" ]; then
         read -rp "Enter raw arguments: " _ADD
         echo -e "Starting Steel... (It may not work, it is in development and prone to bugs. Report any bugs you encounter at the repo Vitalij3703/steel)"
-        plugins/steel "{_ADD}"
+        sudo plugins/steel "{_ADD}"
         return
     else
         echo -e "Steel not found. Install? [y/n]"
