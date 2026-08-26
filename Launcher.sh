@@ -314,7 +314,7 @@ run_custom_raw() {
 install_steel() {
     clear
     echo -e "{WHITE}Installing Steel..."
-    if command -v git &> /dev/null && command -v gcc &> /dev/null; then
+    if command -v curl &> /dev/null && command -v gcc &> /dev/null; then
         echo -e "Getting source..."
         curl -L https://raw.githubusercontent.com/Vitalij3703/steel/refs/heads/main/steel.c -o "steel.c"
         echo -e "Compiling..."
