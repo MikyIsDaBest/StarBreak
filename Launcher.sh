@@ -318,7 +318,7 @@ install_steel() {
         echo -e "Cloning repo..."
         git clone https://github.com/Vitalij3703/steel
         echo -e "Compiling..."
-        gcc steel/steel.c -o plugins/steel
+        gcc -pthread steel/steel.c -o plugins/steel
         echo -e "Installation done."
         chmod +x plugins/steel
         rm -rf steel/
