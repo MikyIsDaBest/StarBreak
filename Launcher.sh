@@ -313,15 +313,16 @@ run_custom_raw() {
 #get the steel src and compile steel
 install_steel() {
     clear
-    echo -e "{WHITE}Installing Steel..."
+    echo -e "${WHITE}Installing Steel...${NC}"
     if command -v curl &> /dev/null && command -v gcc &> /dev/null; then
         echo -e "Getting source..."
         curl -L https://raw.githubusercontent.com/Vitalij3703/steel/refs/heads/main/steel.c -o "steel.c"
+        curl -L https://raw.githubusercontent.com/Vitalij3703/steel/refs/heads/main/xtypes.h -o "xtypes.h"
         echo -e "Compiling..."
         gcc -pthread steel.c -o plugins/steel
         echo -e "Installation done."
         chmod +x plugins/steel
-        rm -rf steel/
+        rm -f steel.c xtypes.h
     else
         echo -e "GCC and curl are required, but not installed. Abort"
     fi
